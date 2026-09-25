@@ -1,0 +1,1043 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1e9d9">
+  <title>再躲一下 · DODGE AGAIN</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='13' y='8' width='38' height='47' rx='19' fill='%2373afd6' stroke='%232c3540' stroke-width='3'/%3E%3Ccircle cx='26' cy='27' r='5' fill='white'/%3E%3Ccircle cx='39' cy='27' r='5' fill='white'/%3E%3C/svg%3E">
+  <style>@charset "UTF-8";
+:root{--paper:#f4eddf;--ink:#293331;--muted:#878477;--red:#c95636;--blue:#79afd0;--line:#d7ccba;--green:#59846b;--purple:#8868ad;font-family:"Avenir Next","PingFang SC","Microsoft YaHei",sans-serif;color:var(--ink);background:#eae4d9;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 20%,#f9f5ed 0%,#ece6db 80%)}button,a{-webkit-tap-highlight-color:transparent}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #70a6c6;outline-offset:5px}button:disabled{cursor:default}a{color:inherit;text-decoration:none}[hidden]{display:none!important}
+.site-header{height:96px;max-width:1680px;margin:auto;padding:0 44px;display:flex;align-items:center;justify-content:space-between;gap:20px}.wordmark{display:flex;align-items:center;gap:12px;font-weight:700;font-size:16px;letter-spacing:1px}.brand-dot{display:grid;place-items:center;background:var(--ink);color:var(--paper);font:italic 700 32px Georgia,serif;width:41px;height:43px;border-radius:13px 16px 14px 8px;transform:rotate(-5deg)}.wordmark small{font-size:9px;letter-spacing:2.4px;display:block;margin-top:3px}.header-note{font-size:11px;color:#807e71;letter-spacing:1px;display:flex;align-items:center;gap:10px}.live-dot{height:6px;width:6px;background:var(--green);border-radius:100%}.divider{margin:0 4px;color:#b9b3a5}.tools{display:flex;gap:10px;align-items:center}.tool{background:transparent;border:1px solid #cbc4b7;border-radius:7px;padding:9px 12px;font-size:11px}.tool:hover{background:#e2dacb}.tool span{color:#948e81;margin-left:5px}.square{font-size:21px;padding:3px 10px}
+main{padding:0 36px 18px;max-width:1680px;margin:auto}.arena{position:relative;width:min(100%,calc((100dvh - 190px)*16/9));aspect-ratio:16/9;margin:0 auto;isolation:isolate;border-radius:13px;overflow:hidden;background:#f4eddf;box-shadow:0 3px 6px #56492f08,0 18px 50px #594b3210,0 0 0 1px #b8aa9080}.arena:fullscreen{width:100vw;height:100vh;aspect-ratio:auto;display:flex;align-items:center;justify-content:center;background:#e9e0d0;border-radius:0}.arena:fullscreen canvas{width:min(100vw,177.7778vh);height:min(100vh,56.25vw)}canvas{display:block;width:100%;height:100%;outline:none;touch-action:none}.hud{position:absolute;inset:0 0 auto;display:flex;height:11%;min-height:48px;align-items:center;padding:0 3.3%;gap:2%;pointer-events:none;background:linear-gradient(#f5eddeeb,#f5edde00)}.health-block{width:23%}.health-caption{display:flex;align-items:center;gap:7px;font-size:clamp(9px,1.05vw,16px);font-variant-numeric:tabular-nums}.heart{color:var(--red);font-size:1.1em}.health-max{font-size:.7em;color:var(--muted)}.health-track{height:7px;margin-top:6px;border:1px solid #918775;border-radius:8px;padding:1px;background:#e2d6c3}.health-track i{display:block;height:100%;background:var(--green);border-radius:5px;transition:width .12s,background .2s}.health-track i.low{background:var(--red)}.control-tag{margin-left:auto;font-size:.68em;color:var(--purple);font-weight:600}.clock-block{position:absolute;left:50%;transform:translateX(-50%);text-align:center}.eyebrow{font-size:10px;letter-spacing:2px;font-weight:600;color:#888373}.clock-block .eyebrow{font-size:clamp(6px,.55vw,9px);letter-spacing:1.5px;display:block}.clock-block strong{font-family:Georgia,serif;font-size:clamp(18px,2.6vw,38px);letter-spacing:1px;font-weight:500;font-variant-numeric:tabular-nums}.pace-block{margin-left:auto;text-align:right;width:13%;font-size:clamp(8px,.75vw,12px);letter-spacing:1px}.small-separator{color:#aaa08c;margin:0 6px}.pace-track{height:3px;background:#dacebd;margin-top:8px}.pace-track i{display:block;height:100%;width:0;background:var(--red)}.pause-button{pointer-events:auto;border:1px solid #b5a88e;background:#f3ebdc;border-radius:50%;width:30px;height:30px;display:grid;place-items:center;font-weight:700;font-size:15px;padding:0}.toast{position:absolute;top:13%;left:50%;transform:translateX(-50%) translateY(-8px);padding:9px 20px;background:#f8f2e6ed;border:1px solid #cfc0a4;border-radius:40px;color:var(--ink);font-size:12px;letter-spacing:1px;opacity:0;transition:opacity .2s,transform .2s;pointer-events:none;white-space:nowrap}.toast.visible{opacity:1;transform:translateX(-50%) translateY(0)}
+.overlay{position:absolute;inset:0}.menu-overlay{display:flex;align-items:center;justify-content:center;gap:9%;background:linear-gradient(90deg,#f4eddfd6,#f4eddf9c 70%,#f4eddfbf);padding:5% 7%}.intro{width:53%;max-width:620px}.red{color:var(--red)}.tiny-star{font-size:17px;margin-right:9px;vertical-align:middle}.intro h1{font-family:"STKaiti","Kaiti SC","KaiTi","PingFang SC",serif;font-size:clamp(36px,5.5vw,88px);line-height:1.1;letter-spacing:2px;font-weight:700;margin:24px 0 10px;white-space:nowrap}.intro h1 i{font-family:Georgia,serif;color:var(--red);font-size:1.1em;display:inline-block;transform:rotate(12deg);margin-left:10px}.title-mark{position:relative}.title-mark:after{content:"";position:absolute;bottom:-6px;left:4px;right:-5px;height:7px;border-bottom:4px solid #c9563670;border-radius:50%;transform:rotate(-4deg)}.english-title{font-size:clamp(12px,1.7vw,28px);font-weight:800;letter-spacing:4px;margin-top:16px}.english-title span{color:var(--red)}.intro-copy{font-size:clamp(11px,1vw,16px);line-height:2;color:#757365;margin:20px 0 27px}.start-row{display:flex;align-items:center;gap:24px}.primary{display:flex;align-items:center;justify-content:space-between;gap:35px;background:var(--ink);color:#f7efdf;border:1px solid var(--ink);border-radius:7px 10px 8px 6px;padding:15px 25px;font-size:14px;letter-spacing:2px;box-shadow:3px 4px 0 #29333122;transition:transform .15s,background .15s}.primary:hover{background:#414e47;transform:translateY(-2px)}.primary:active{transform:translateY(1px)}.primary span{font-size:23px;line-height:1}.start-hint{font-size:10px;line-height:1.8;letter-spacing:1px;color:#8d8778}.intro-meta{display:flex;gap:18px;color:#969080;font-size:10px;margin-top:29px}.intro-meta span+span:before{content:"·";margin-right:18px}.record-card{width:29%;max-width:310px;min-width:210px;padding:26px 25px 19px;border:1px solid #cabb9f;background:#f6efdfc9;border-radius:4px 12px 7px 9px;transform:rotate(1deg);box-shadow:5px 6px 0 #d7c9ad30;position:relative}.record-card:before{content:"";position:absolute;width:68px;height:18px;top:-10px;left:calc(50% - 34px);transform:rotate(-7deg);background:#ddc9a278}.record-card .eyebrow{font-size:8px;letter-spacing:1.8px}.best{font:62px Georgia,serif;margin:8px 0 12px;letter-spacing:-2px}.best span{font:11px "PingFang SC",sans-serif;letter-spacing:0;margin-left:8px;color:var(--muted)}.card-rule{height:1px;background:#d3c6af;margin:12px 0 20px}.board-title{display:flex;align-items:center;justify-content:space-between;font-size:12px}.board-title span{font-size:9px;color:#9d937f}.leaderboard{list-style:none;padding:0;margin:13px 0 16px;font-size:11px;min-height:80px}.leaderboard li{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px dashed #d9ceba}.leaderboard li em{font:italic 14px Georgia,serif;color:#9b8c71}.leaderboard li strong{margin-left:auto;font-weight:600;font-variant-numeric:tabular-nums}.leaderboard li small{color:#948b78;font-size:9px}.leaderboard .empty{border:0;color:#9c917e;font-size:11px;line-height:1.9;padding:16px 0;display:block}.card-foot{font-size:9px;color:#a3947b;letter-spacing:.3px}.menu-foot{position:absolute;bottom:5%;left:11%;font-size:11px;letter-spacing:1px;color:#968a73}.ink-arrow{font-size:30px;vertical-align:middle;margin-right:12px;display:inline-block;transform:rotate(-15deg)}
+.modal-overlay{background:#eee6d9a3;backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center}.modal{background:#f7f0e3;border:1px solid #c9b99e;border-radius:13px 6px 12px 8px;padding:30px 42px;text-align:center;box-shadow:8px 10px 0 #71634c12;max-height:93%;overflow:auto}.modal h2{font-family:"STKaiti","Kaiti SC","PingFang SC",serif;font-size:36px;letter-spacing:2px;margin:15px 0 10px}.modal p{color:#88806f;font-size:12px;line-height:1.8}.modal .primary{margin:20px auto 8px;min-width:220px}.text-button{border:0;background:none;padding:10px;font-size:11px;color:#8e806a;text-decoration:underline;text-underline-offset:4px}.result-modal{width:420px}.result-time{font:62px Georgia,serif;margin:10px 0}.result-time small{font:12px sans-serif;color:#8e806a;margin-left:10px}.result-stats{display:flex;justify-content:space-around;border-top:1px solid #d8cdb8;border-bottom:1px solid #d8cdb8;margin-top:17px;padding:15px 0}.result-stats b{display:block;font:24px Georgia,serif}.result-stats span{font-size:10px;color:#948875;display:block;margin-top:5px}.result-note{font-size:9px!important;margin-bottom:0}.guide-modal{max-width:720px;text-align:left;padding:25px 35px}.guide-modal h2{font-size:28px}.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px 30px;margin:20px 0}.guide-grid>div{display:grid;grid-template-columns:34px 1fr;gap:5px 6px}.guide-grid b{font-size:12px;font-weight:600}.guide-grid span{font-size:10px;color:#918570;grid-column:2}.skill-symbol{grid-row:span 2;font-size:27px;font-style:normal;color:var(--red)}.skill-symbol.bind{color:var(--purple)}.skill-symbol.wave{color:#b88a38}.skill-symbol.heal{color:var(--green)}.guide-fine{font-size:10px!important;border-top:1px solid #d8cdb8;padding-top:12px}.guide-modal .primary{min-width:180px;padding:11px 18px;font-size:12px}.game-footer{display:flex;align-items:center;justify-content:space-between;width:min(100%,calc((100dvh - 190px)*16/9));margin:21px auto 0;gap:14px}.key-hint{display:flex;align-items:center;gap:4px}.key-hint>span{display:flex;gap:4px}kbd{display:inline-block;border:1px solid #b7ad99;border-bottom-width:2px;padding:3px 6px;font:9px monospace;border-radius:3px;background:#f4eddf;color:#706d5f}.key-hint b{font-size:10px;font-weight:400;color:#8a826f;margin-left:8px}.skill-legend{display:flex;gap:24px}.skill-legend>span{display:flex;align-items:center;gap:7px;font-size:10px;color:#8b806d}.skill-legend i{display:inline-block;font-style:normal}.legend-line{height:2px;width:20px;background:#bb783d;position:relative}.legend-line:after{content:"";position:absolute;right:-2px;top:-3px;border-left:6px solid #bb783d;border-top:4px solid transparent;border-bottom:4px solid transparent}.legend-beam{width:21px;height:7px;border:1px dashed var(--red);background:#d57f5020}.legend-wave{color:#b58b3c;font-size:23px;line-height:12px}.legend-bind{width:10px;height:10px;background:var(--purple);border-radius:50%;box-shadow:0 0 0 3px #8868ad22}.legend-burst{width:12px;height:12px;border:1px solid var(--red);border-radius:50%;background:#c9563620}.legend-heal{color:var(--green);font-size:18px;line-height:12px;font-weight:bold}.footer-note{font-size:10px;color:#968871;letter-spacing:1px}.footer-note span{margin-left:14px;font-size:17px}.keyboard-warning{display:none;text-align:center;font-size:12px;color:#8e806a}
+@media(max-width:1100px){.header-note{display:none}.site-header{height:76px;padding:0 26px}main{padding:0 24px 14px}.arena,.game-footer{width:min(100%,calc((100dvh - 160px)*16/9))}.intro h1{margin-top:16px}.intro-copy{margin:15px 0 20px}.intro-meta{gap:8px;font-size:9px;margin-top:20px}.intro-meta span+span:before{margin-right:8px}.record-card{padding:20px;min-width:180px}.best{font-size:46px}.primary{padding:12px 20px}.menu-foot{bottom:3%}.skill-legend{gap:14px}.footer-note{display:none}.modal{padding:22px 30px}.result-modal{width:370px}.result-time{font-size:46px}.result-modal h2{font-size:30px}.result-stats{padding:10px 0}.modal .primary{margin-top:14px}.eyebrow{font-size:8px}}
+@media(max-width:760px){.site-header{height:65px;padding:0 16px}.wordmark{font-size:13px}.wordmark small{font-size:7px}.tools{gap:5px}.tool{font-size:9px;padding:7px}.square{font-size:16px}.brand-dot{width:32px;height:34px;font-size:25px}main{padding:0 12px}.arena{width:100%}.menu-overlay{gap:5%;padding:4% 6%}.record-card{min-width:135px;padding:12px;width:30%}.best{font-size:30px;margin:6px 0}.record-card .eyebrow{font-size:6px}.card-rule{margin:8px 0}.board-title{font-size:9px}.board-title span{font-size:7px}.leaderboard{min-height:40px;margin:4px 0}.leaderboard .empty{font-size:8px;padding:5px 0}.card-foot{font-size:7px}.intro h1{font-size:34px;margin:10px 0}.intro-copy{font-size:9px;margin:10px 0}.intro-meta,.menu-foot,.intro .eyebrow,.start-hint{display:none}.primary{font-size:10px;padding:9px 14px;gap:20px}.english-title{font-size:11px;letter-spacing:2px;margin-top:9px}.game-footer{width:100%;margin-top:14px}.skill-legend{gap:10px}.skill-legend>span{font-size:8px;gap:4px}.key-hint{display:none}.keyboard-warning{display:block}.modal{padding:12px 20px;max-height:94%}.modal h2{font-size:22px;margin:8px 0}.modal p{font-size:9px;margin:6px 0}.modal .primary{padding:8px 13px;min-width:150px;margin-top:9px}.result-modal{width:280px}.result-time{font-size:28px;margin:5px 0}.result-stats{margin-top:7px;padding:7px 0}.result-stats b{font-size:16px}.result-stats span{font-size:8px}.text-button{padding:6px;font-size:9px}.guide-modal{max-width:90%}.guide-grid{gap:8px 15px;margin:9px 0}.guide-grid b{font-size:9px}.guide-grid span{font-size:8px}.guide-fine{font-size:8px!important}.skill-symbol{font-size:20px}.guide-grid>div{grid-template-columns:22px 1fr}.health-track{height:5px;margin-top:3px}.pause-button{width:23px;height:23px;font-size:11px}.toast{font-size:9px;padding:5px 12px}.pace-block{width:17%}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}.primary:hover{transform:none}}
+/* Second playable: readable item controls, record feedback and run-only growth. */
+.run-tools{position:absolute;bottom:1.6%;left:3%;right:3%;display:flex;align-items:center;gap:14px;font-size:clamp(8px,.75vw,12px);pointer-events:none}.power-slot{pointer-events:auto;border:1px solid #c5b596;border-radius:8px;background:#f6eddeed;padding:7px 11px;display:flex;align-items:center;gap:8px;font-size:inherit}.power-slot:disabled{opacity:.65}.power-slot[data-kind=shield]{border-color:#689fb9;color:#3d738d;background:#edf3ede8}.power-slot[data-kind=slow]{border-color:#6c9298;color:#456f78;background:#edf4efe8}.active-power{color:#477984;font-weight:600}.fragment-counter{margin-left:auto;color:#98702e;font-weight:500}.fragment-counter small{color:#94866e;display:block;text-align:right;font-size:.8em;margin-top:3px}.record-badge{display:block;color:#a57b31;font-family:inherit;font-size:clamp(7px,.7vw,11px);letter-spacing:1px;white-space:nowrap}.record-banner{position:absolute;left:50%;top:19%;transform:translateX(-50%);border:1px solid #c7a668;background:#fff3d9ed;color:#8b652a;padding:12px 22px;border-radius:8px;font-size:13px;letter-spacing:1px;text-align:center;pointer-events:none;box-shadow:0 4px 15px #b0996522;white-space:nowrap}.upgrade-modal{max-width:850px;width:85%;padding:30px}.upgrade-modal h2{font-size:clamp(20px,2.4vw,34px)}.upgrade-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:24px 0 15px}.upgrade-card{display:flex;flex-direction:column;align-items:center;gap:12px;padding:24px 14px;background:#f6eddc;border:1px solid #c9b699;border-radius:10px;transition:transform .15s,border-color .15s}.upgrade-card:hover:not(:disabled){transform:translateY(-5px);border-color:#718c73;background:#f8f1e4}.upgrade-card i{font-size:30px;font-style:normal;color:#ac7945}.upgrade-card:first-child i{color:#bc684d}.upgrade-card:nth-child(2) i{color:#64919d}.upgrade-card b{font-size:17px}.upgrade-card strong{font-size:14px}.upgrade-card span{font-size:11px;color:#877861;line-height:1.7}.upgrade-card small{font-size:10px;color:#9c8766}.upgrade-card:disabled{opacity:.4}.upgrade-foot{font-size:11px!important}.guide-modal .guide-fine{line-height:1.8}.game-footer .key-hint b{white-space:nowrap}
+@media(max-width:1100px){.upgrade-card{padding:17px 10px;gap:9px}.upgrade-grid{gap:10px;margin-top:15px}.upgrade-card b{font-size:14px}.upgrade-card strong{font-size:12px}.record-banner{font-size:11px;padding:8px 14px}.run-tools{gap:8px}.power-slot{padding:5px 8px}.game-footer .skill-legend{gap:12px}}
+@media(max-width:760px){.upgrade-modal{padding:12px}.upgrade-grid{gap:7px;margin:10px 0}.upgrade-card{gap:6px;padding:9px 5px}.upgrade-card i{font-size:20px}.upgrade-card b{font-size:11px}.upgrade-card strong{font-size:9px}.upgrade-card span,.upgrade-card small{font-size:8px}.upgrade-modal h2{font-size:19px}.record-banner{font-size:9px;top:24%;padding:6px 10px}.power-slot{padding:4px;font-size:8px}.power-slot kbd{font-size:7px;padding:2px}.fragment-counter small{display:none}.run-tools{gap:6px}.active-power{font-size:8px}}
+
+/* Release 03: keep HUD below the actual playfield and separate choices from rerolls. */
+.run-tools{bottom:1%;min-height:5%;gap:10px}.power-slot{padding:5px 9px}.attributes-button{pointer-events:auto;border:1px solid #b9aa8e;border-radius:6px;background:#f7efdf;padding:6px 10px;font:inherit;white-space:nowrap}.attributes-button:hover{background:#e8ddc5}.pause-modal{width:min(650px,90%)}.attributes-panel{text-align:left;border-block:1px solid #d5c6aa;padding:14px 0;margin:16px 0}.attributes-panel>b{font-size:14px}.attributes-panel p{line-height:1.9}.attributes-panel ul{padding-left:18px;font-size:12px;line-height:1.9;color:#756a58}.upgrade-option{display:flex;flex-direction:column;gap:10px;min-width:0}.upgrade-card{width:100%;flex:1;min-height:235px;gap:10px;padding:20px 12px}.upgrade-card em{font-style:normal;color:#426a58;font-size:12px;margin-top:auto;padding-top:9px}.reroll{border:1px solid #c7b79a;background:#f3e8d4;border-radius:6px;padding:10px 4px;font-size:12px}.reroll:hover:not(:disabled){background:#e4d7bd}.reroll:disabled{opacity:.5}.upgrade-feedback{min-height:20px}.resume-countdown{position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);padding:18px 28px;border:1px solid #9d8a68;border-radius:9px;background:#fff6e6ed;font-size:20px;pointer-events:none;box-shadow:0 4px 20px #89775620}.upgrade-card:focus-visible{outline-offset:2px}.upgrade-grid:has(.upgrade-option:only-child){grid-template-columns:minmax(180px,280px);justify-content:center}
+@media(max-width:1100px){.upgrade-card{min-height:205px;padding:13px 9px}.run-tools{font-size:9px;gap:7px}.attributes-button{padding:5px 7px}.attributes-panel{padding:8px 0;margin:9px 0}.attributes-panel ul{font-size:11px}}
+@media(max-width:760px){.upgrade-card{min-height:155px;padding:9px 5px;gap:5px}.reroll{font-size:9px;padding:6px 3px}.upgrade-option{gap:5px}.attributes-button{font-size:8px;padding:4px}.run-tools{gap:4px}.upgrade-card em{font-size:9px}.attributes-panel ul{font-size:9px}.resume-countdown{font-size:14px}}
+
+/* Restore generous arena coverage; HUD stays in narrow non-playable margins. */
+.site-header{height:60px;max-width:none;padding-inline:24px}main{max-width:none;padding:0 16px 10px}.arena,.game-footer{width:min(100%,calc((100dvh - 124px)*16/9))}.game-footer{margin-top:12px}.hud{height:9%;min-height:0}.run-tools{bottom:.5%;min-height:5%}
+@media(max-width:1100px){.site-header{height:54px;padding-inline:18px}main{padding-inline:12px}.arena,.game-footer{width:min(100%,calc((100dvh - 112px)*16/9))}.run-tools{bottom:.5%}}
+@media(max-width:760px){.site-header{height:50px;padding-inline:12px}main{padding-inline:8px}.arena,.game-footer{width:100%}.hud{height:9%;min-height:0}}
+
+.power-slot.protecting:disabled{opacity:1;border-color:#2588bd;background:#e0f2fc;color:#226b94;box-shadow:0 0 0 2px #2588bd20}.active-power{color:#286f98}
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="#" aria-label="再躲一下首页"><span class="brand-dot">d.</span><span>再躲一下 <small>DODGE AGAIN · v3.8</small></span></a>
+    <div class="header-note"><span class="live-dot"></span> 无尽走位练习场 <span class="divider">/</span> GROW & SURVIVE · 03</div>
+    <div class="tools">
+      <button id="sound" class="tool" aria-pressed="false" title="切换音效">音效 <span>关</span></button>
+      <button id="guide" class="tool">玩法说明</button>
+      <button id="fullscreen" class="tool square" aria-label="全屏" title="全屏">⛶</button>
+    </div>
+  </header>
+  <main>
+    <div class="arena" id="arena">
+      <canvas id="game" width="1600" height="900" aria-label="走位竞技场。使用 WASD 移动，Esc 暂停。" tabindex="0"></canvas>
+      <div id="hud" class="hud" hidden>
+        <div class="health-block"><div class="health-caption"><span class="heart">♥</span> <b id="hp">1000</b><span id="max-hp" class="health-max">/ 1000</span><span id="control" class="control-tag"></span></div><div class="health-track"><i id="health-fill"></i></div></div>
+        <div class="clock-block"><span class="eyebrow">SURVIVAL TIME</span><strong id="clock">00:00.0</strong><span id="record-badge" class="record-badge" hidden>✦ 新纪录</span></div>
+        <div class="pace-block"><div><span id="level">强度 01</span><span class="small-separator">/</span><span id="wave">第 0 批</span></div><div class="pace-track"><i id="pace-fill"></i></div></div>
+        <button id="pause" class="pause-button" aria-label="暂停游戏">Ⅱ</button>
+      </div>
+      <div id="run-tools" class="run-tools" hidden>
+        <button id="use-power" class="power-slot" aria-label="使用携带的技能包"><kbd>SPACE</kbd><span id="power-label">技能槽为空</span></button>
+        <button id="attributes" class="attributes-button">本局能力 · Esc</button><span id="active-power" class="active-power"></span>
+        <span class="fragment-counter">✧ 碎片 <b id="fragment-count">0 / 3</b><small id="growth-summary">本局成长 0 次</small></span>
+      </div>
+      <div id="record-banner" class="record-banner" aria-live="polite" hidden>✦ 新纪录！继续向前。</div>
+      <div id="toast" class="toast" aria-live="polite"></div>
+      <div id="menu" class="overlay menu-overlay">
+        <section class="intro">
+          <div class="eyebrow red"><span class="tiny-star">✳</span> A LITTLE GAME ABOUT STAYING ALIVE</div>
+          <h1>再躲<span class="title-mark">一下</span><i>!</i></h1>
+          <div class="english-title">DODGE <span>AGAIN.</span></div>
+          <p class="intro-copy">没有攻击键。只有你、四面八方的技能，<br>和下一次恰到好处的闪躲。</p>
+          <div class="start-row"><button id="start" class="primary">开始挑战 <span>↗</span></button><span class="start-hint">WASD 移动 · 空格用道具<br>ESC 暂停</span></div>
+          <div class="intro-meta"><span>1000 生命值</span><span>捡碎片，选成长</span><span>活得久，排得高</span></div>
+        </section>
+        <aside class="record-card">
+          <div class="eyebrow">YOUR PERSONAL BEST</div><div id="best" class="best">—<span>秒</span></div>
+          <div class="card-rule"></div>
+          <div class="board-title"><b>生存排行榜</b><span>本机记录</span></div>
+          <ol id="leaderboard" class="leaderboard"></ol>
+          <div id="storage-note" class="card-foot">每次挑战，留下一点进步。</div>
+        </aside>
+        <div class="menu-foot"><span class="ink-arrow">↳</span> 看清来路，给自己留条退路。</div>
+      </div>
+      <div id="resume-countdown" class="resume-countdown" role="status" hidden></div>
+      <div id="pause-panel" class="overlay modal-overlay" hidden>
+        <section class="modal pause-modal"><div class="eyebrow">TAKE A BREATH</div><h2>先歇一下。</h2><p>计时和所有技能已经暂停。</p><div class="attributes-panel"><b>本局能力</b><p id="attribute-values"></p><p id="no-growth">尚未成长 · 每 3 枚碎片选择一张成长卡</p><ul id="owned-cards"></ul></div><button id="resume" class="primary">继续走位 <span>↗</span></button><button id="pause-home" class="text-button">结束本局，返回首页</button></section>
+      </div>
+      <div id="result" class="overlay modal-overlay" hidden>
+        <section class="modal result-modal"><div id="result-tag" class="eyebrow red">ONE MORE TRY?</div><h2>就差一点。</h2><div class="result-time"><span id="result-time">0.0</span><small>秒</small></div><p id="death-reason"></p><div class="result-stats"><div><b id="result-wave">0</b><span>遭遇批次</span></div><div><b id="result-dodged">0</b><span>避开的技能</span></div><div><b id="result-rank">—</b><span>本机排名</span></div></div><button id="restart" class="primary">再躲一下 <span>↗</span></button><button id="result-home" class="text-button">查看排行榜</button><p class="result-note" id="result-save"></p></section>
+      </div>
+      <div id="upgrade-panel" class="overlay modal-overlay" hidden>
+        <section class="modal upgrade-modal" role="dialog" aria-modal="true" aria-labelledby="upgrade-title">
+          <div class="eyebrow red">THREE SHARDS. ONE GOOD CHOICE.</div><h2 id="upgrade-title">给下一次闪躲，多一点底气。</h2>
+          <p>已收集 3 枚成长碎片 · 战场、道具和计时已暂停</p>
+          <div id="upgrade-grid" class="upgrade-grid"></div><p id="upgrade-feedback" role="status" class="upgrade-feedback"></p><p class="upgrade-foot">点击选择，或按 1 / 2 / 3 · 成长仅在本局有效</p>
+        </section>
+      </div>
+      <div id="guide-panel" class="overlay modal-overlay" hidden>
+        <section class="modal guide-modal"><div class="eyebrow red">KNOW WHAT IS COMING</div><h2>只走位，不出手。</h2><p>WASD 即按即走，斜向不加速。敌人瞄准你，放完技能就退场。</p><div class="guide-grid"><div><i class="skill-symbol spear">➝</i><b>长矛 · 100 伤害</b><span>窄而快，朝弹道侧面闪。</span></div><div><i class="skill-symbol beam">━</i><b>射线 · 150 伤害</b><span>长条预警后瞬发，先离开线。</span></div><div><i class="skill-symbol wave">❯</i><b>冲击波 · 120 伤害</b><span>宽幅推进，提前向两侧绕。</span></div><div><i class="skill-symbol bind">●</i><b>禁锢球 · 65 伤害</b><span>定身 0.5～2 秒，优先躲开。</span></div><div><i class="skill-symbol burst">◎</i><b>轰击 · 130 伤害</b><span>圆圈填满就爆炸，及时出圈。</span></div><div><i class="skill-symbol heal">✚</i><b>补给 · 回复 180</b><span>18 秒起独立刷新，后期更频繁；满血也可拾取，8 秒消失。</span></div></div><p class="guide-fine"><b>护盾包</b>：空格使用后持续保留，挡住下一次攻击的伤害和控制后消失；拾取新的护盾或减速包也会移除当前护盾。血包与碎片不移除护盾。<b>时间减速</b>：飞行技能减速 50%，持续 3 秒，射线与轰击不减速。最多携带一个技能包；拾取新道具会直接替换当前携带道具，同类也可拾取，不叠加。地面可保留一个备用道具。碎片与道具每 30 秒提高刷新频率，90 秒后达到上限。地面道具均有 8 秒倒计时。<br><b>成长碎片</b>：自动拾取，每 3 枚暂停，从六张成长卡中随机三选一；每张可独立刷新一次。包含生命、移速、减速时长、拾取范围、护盾格挡加速和使用减速回血。已满级的卡不再出现，全满级后转为续航储备。按 Esc 查看本局能力。选择后有 1 秒准备时间。<br>硬控制结束后有 1.2 秒防连续定身保护。每 15 秒提升强度；排名只看存活时间。切出页面自动暂停。</p><button id="close-guide" class="primary">知道了 <span>✓</span></button></section>
+      </div>
+    </div>
+    <footer class="game-footer"><div class="key-hint"><kbd>W</kbd><span><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span><b>移动 · 空格使用道具</b></div><div class="skill-legend"><span><i class="legend-line"></i>长矛</span><span><i class="legend-beam"></i>射线</span><span><i class="legend-wave">〉</i>冲击波</span><span><i class="legend-bind"></i>禁锢</span><span><i class="legend-burst"></i>轰击</span><span><i class="legend-heal">+</i>补给</span></div><div class="footer-note">不必迎战，漂亮地躲开。<span>↗</span></div></footer>
+    <p class="keyboard-warning">建议使用电脑键盘试玩 · WASD 移动</p>
+  </main>
+  <script>(function (root, factory) {
+  const api = factory();
+  if (typeof module === 'object' && module.exports) module.exports = api;
+  else root.DodgeEngine = api;
+})(typeof globalThis !== 'undefined' ? globalThis : this, function () {
+  'use strict';
+  const W = 1600, H = 900;
+  const FIELD = { left: 24, right: 1576, top: 84, bottom: 844 };
+  const PLAYER_SCALE = 0.9; // Fixed for the entire run, independent of difficulty.
+  const MOVE_PAD = { x: 26 * PLAYER_SCALE, top: 30 * PLAYER_SCALE, bottom: 28 * PLAYER_SCALE };
+  const CARDS = {
+    health: { name: '强健体魄', icon: '♥', cap: 3, branch: '生存', detail: '生命上限 +100，同时回复 100' },
+    speed: { name: '轻盈步伐', icon: '↗', cap: 3, branch: '走位', detail: '移动速度 +4%，最多 +12%' },
+    duration: { name: '效果延长', icon: '◷', cap: 2, branch: '道具', detail: '时间减速持续时间 +0.5 秒' },
+    reach: { name: '伸手可及', icon: '✧', cap: 2, branch: '补给', detail: '拾取范围 +25%，最多 +50%' },
+    shieldHaste: { name: '护盾疾行', icon: '◇', cap: 1, branch: '道具', detail: '护盾成功格挡后，移动速度 +15%，持续 2 秒' },
+    slowHeal: { name: '时间喘息', icon: '◌', cap: 1, branch: '道具', detail: '使用时间减速时回复 60 生命' }
+  };
+  const RESERVE = { name: '续航储备', icon: '♥', cap: Infinity, branch: '满级补给', detail: '卡池已满级：生命上限 +25，同时回复 25' };
+  function supply(t) {
+    const stage = Math.min(3, Math.floor(t / 30));
+    return { heal: [[16,20],[10,13],[7,9],[6,8]][stage], power: [[12,16],[10,13],[8,11],[7,10]][stage], fragment: [[9,12],[8,11],[7,10],[6,9]][stage] };
+  }
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const distance = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
+  function segmentDistance(px, py, ax, ay, bx, by) {
+    const dx = bx - ax, dy = by - ay;
+    const t = clamp(((px - ax) * dx + (py - ay) * dy) / (dx * dx + dy * dy || 1), 0, 1);
+    return Math.hypot(px - ax - t * dx, py - ay - t * dy);
+  }
+  function seeded(seed) {
+    return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0;
+      let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+      return ((t ^ t >>> 14) >>> 0) / 4294967296;
+    };
+  }
+  function difficulty(t) {
+    const level = 1 + Math.floor(t / 15);
+    return { level, interval: Math.max(1.25, 4.1 * Math.exp(-t / 75)),
+      min: Math.min(5, 1 + Math.floor(t / 30)), max: Math.min(9, 3 + Math.floor(t / 20)),
+      speed: 1 + Math.min(t / 180, 0.8), charge: Math.max(1.05, 1.65 - t / 200) };
+  }
+  const SKILLS = {
+    spear: { name: '长矛', damage: 100, speed: 560, radius: 7 },
+    beam: { name: '灼光射线', damage: 150, radius: 19 },
+    wave: { name: '弧形冲击波', damage: 120, speed: 310, radius: 12, width: 190 },
+    bind: { name: '禁锢暗球', damage: 65, speed: 370, radius: 13 },
+    burst: { name: '落星轰击', damage: 130, radius: 112 }
+  };
+  const WIDE_SKILLS = ['beam', 'wave', 'burst'];
+  const ATTACK_RULES = { wideLimit: 3, totalLimit: 18, keyGap: .42, maxScheduleShift: .8 };
+  class Game {
+    constructor(rng = Math.random) { this.rng = rng; this.reset(); }
+    reset() {
+      this.status = 'ready'; this.time = 0; this.wave = 0; this.nextWave = 1.1;
+      this.player = { x: 800, y: 488, r: 16 * PLAYER_SCALE, hp: 1000, maxHp: 1000, vx: 0, vy: 0,
+        rootUntil: 0, rootImmuneUntil: 0, invulnerableUntil: 0 };
+      this.enemies = []; this.attacks = []; this.pickups = []; this.events = [];
+      this.lastWideEvent = -Infinity;
+      this.nextHealCheck = 18; this.id = 0;
+      this.stats = { hits: 0, damage: 0, healing: 0, casts: 0, dodged: 0, spawned: 0, bySkill: {} };
+      this.killedBy = ''; this.lastLevel = 1;
+      this.held = null; this.shieldActive = false; this.slowUntil = 0;
+      this.fragments = 0; this.upgrades = Object.fromEntries(Object.keys(CARDS).map(k => [k, 0]));
+      this.offers = []; this.rerolled = []; this.discarded = []; this.reserve = 0; this.hasteUntil = 0; this.edgeContact = null;
+      this.nextPower = 12; this.nextFragment = 4;
+      this.previousBest = null; this.recordBroken = false;
+      this.stats.blocked = 0; this.stats.powersUsed = 0; this.stats.fragments = 0;
+    }
+    start(previousBest = null) { this.reset(); this.previousBest = Number.isFinite(previousBest) && previousBest >= 0 ? previousBest : null; this.status = 'running'; }
+    pause() { if (this.status === 'running') this.status = 'paused'; }
+    resume() { if (this.status === 'paused') this.status = 'running'; }
+    emit(type, data = {}) { this.events.push({ type, time: this.time, ...data }); }
+    drainEvents() { return this.events.splice(0); }
+    usePower() {
+      if (this.status !== 'running' || !this.held) return false;
+      const kind = this.held;
+      if ((kind === 'shield' && this.shieldActive) || (kind === 'slow' && this.slowUntil > this.time)) return false;
+      const duration = 3 + this.upgrades.duration * 0.5;
+      if (kind === 'shield') this.shieldActive = true;
+      else if (kind === 'slow') { this.slowUntil = this.time + duration; if (this.upgrades.slowHeal) this.heal(60); }
+      else return false;
+      this.held = null; this.stats.powersUsed++; this.emit('powerUsed', { kind, duration: kind === 'shield' ? null : duration }); return true;
+    }
+    attributes() {
+      return { maxHp: this.player.maxHp, speedBonus: this.upgrades.speed * 4,
+        hasteBonus: this.hasteUntil > this.time ? 15 : 0,
+        pickupRadius: 34 * (1 + this.upgrades.reach * .25), pickupBonus: this.upgrades.reach * 25,
+        powerDuration: 3 + this.upgrades.duration * .5, shieldHaste: !!this.upgrades.shieldHaste,
+        slowHeal: this.upgrades.slowHeal ? 60 : 0 };
+    }
+    heal(amount) {
+      const actual = Math.min(amount, this.player.maxHp - this.player.hp);
+      this.player.hp += actual; this.stats.healing += actual;
+      if (actual > 0) this.emit('heal', { amount: actual, x: this.player.x, y: this.player.y });
+      return actual;
+    }
+    canUpgrade(kind) {
+      return kind === 'reserve' ? Object.keys(CARDS).every(k => !this.canUpgrade(k))
+        : !!CARDS[kind] && this.upgrades[kind] < CARDS[kind].cap;
+    }
+    drawCard(exclude = []) {
+      const pool = Object.keys(CARDS).filter(k => this.canUpgrade(k) && !exclude.includes(k));
+      return pool.length ? pool[Math.floor(this.rng() * pool.length)] : null;
+    }
+    beginUpgrade() {
+      this.status = 'upgrading'; this.player.vx = 0; this.player.vy = 0;
+      this.offers = []; this.rerolled = [false,false,false]; this.discarded = [];
+      for (let i = 0; i < 3; i++) { const card = this.drawCard(this.offers); if (card) this.offers.push(card); }
+      if (!this.offers.length) this.offers = ['reserve'];
+      this.emit('upgradeReady');
+    }
+    canReroll(slot) {
+      return this.status === 'upgrading' && Number.isInteger(slot) && slot >= 0 && slot < this.offers.length &&
+        !this.rerolled[slot] && Object.keys(CARDS).some(k => this.canUpgrade(k) && !this.offers.includes(k) && !this.discarded.includes(k));
+    }
+    reroll(slot) {
+      if (!this.canReroll(slot)) return false;
+      const next = this.drawCard([...this.offers, ...this.discarded]);
+      this.discarded.push(this.offers[slot]); this.offers[slot] = next; this.rerolled[slot] = true;
+      this.emit('rerolled', { slot }); return true;
+    }
+    chooseUpgrade(kind) {
+      if (this.status !== 'upgrading' || !this.offers.includes(kind) || !this.canUpgrade(kind)) return false;
+      if (kind === 'reserve') this.reserve++; else this.upgrades[kind]++;
+      if (kind === 'health' || kind === 'reserve') { const amount = kind === 'health' ? 100 : 25; this.player.maxHp += amount; this.heal(amount); }
+      this.offers = []; this.status = 'running'; this.emit('upgradeChosen', { kind }); return true;
+    }
+    pickupPoint() {
+      let best = null, score = -Infinity;
+      for (let i = 0; i < 24; i++) {
+        const point = { x: 410 + this.rng() * 780, y: 250 + this.rng() * 440 };
+        const dist = distance(point, this.player);
+        if (dist < 280 || dist > 1100 || this.pickups.some(h => distance(h, point) < 75)) continue;
+        let route = 0;
+        for (const e of this.enemies) {
+          if (!e.fired && segmentDistance(point.x, point.y, e.x, e.y, e.x + e.dx * 1800, e.y + e.dy * 1800) < 130) route += 110;
+        }
+        const value = Math.min(dist, 650) + route;
+        if (value > score) { score = value; best = point; }
+      }
+      return best;
+    }
+    spawnPickup(kind) {
+      if (!['heal', 'shield', 'slow', 'fragment'].includes(kind)) return false;
+      if (this.pickups.some(h => (h.kind || 'heal') === kind)) return false;
+      if (['shield', 'slow'].includes(kind) && this.pickups.some(h => ['shield', 'slow'].includes(h.kind))) return false;
+      const point = this.pickupPoint(); if (!point) return false;
+      this.pickups.push({ ...point, id: ++this.id, kind, born: this.time, expires: this.time + 8, amount: kind === 'heal' ? 180 : 1 });
+      this.emit('pickupSpawn', { kind }); return true;
+    }
+    aim(enemy, lead = 0) {
+      const p = this.player;
+      const target = { x: clamp(p.x + p.vx * lead, FIELD.left + MOVE_PAD.x, FIELD.right - MOVE_PAD.x),
+        y: clamp(p.y + p.vy * lead, FIELD.top + MOVE_PAD.top, FIELD.bottom - MOVE_PAD.bottom) };
+      const n = Math.hypot(target.x - enemy.x, target.y - enemy.y) || 1;
+      return { target, dx: (target.x - enemy.x) / n, dy: (target.y - enemy.y) / n };
+    }
+    // Count reservations before telegraphing as well as live, unspent attacks.
+    pressure(exclude = null) {
+      const hazards = [...this.enemies.filter(e => e !== exclude && !e.fired),
+        ...this.attacks.filter(a => !a.dead && !a.hit && a.age <= a.life)];
+      return { total: hazards.length, wide: hazards.filter(a => WIDE_SKILLS.includes(a.kind)).length,
+        bind: hazards.filter(a => a.kind === 'bind').length,
+        heavyBind: hazards.some(a => a.kind === 'bind' && a.root === 2) || this.player.rootUntil-this.time > .5 };
+    }
+    burstDelay(at) { return Math.max(.75, 1.1-at/500); }
+    keyTime(e) { return e.fireAt + (e.kind === 'burst' ? e.burstDelay : 0); }
+    reserveWideTime(kind, fireAt) {
+      const reserved = [this.lastWideEvent,
+        ...this.enemies.filter(e => !e.fired && WIDE_SKILLS.includes(e.kind)).map(e => this.keyTime(e)),
+        ...this.attacks.filter(a => !a.dead && a.kind === 'burst').map(a => a.born+a.delay)];
+      // Bounded scheduling before the enemy appears. No deferred backlog.
+      for (let shift=0; shift <= ATTACK_RULES.maxScheduleShift+.001; shift+=.05) {
+        const at=fireAt+shift, delay=kind==='burst'?this.burstDelay(at):0;
+        if(reserved.every(t=>Math.abs(at+delay-t)>=ATTACK_RULES.keyGap)) return {fireAt:at,burstDelay:delay};
+      }
+      return null;
+    }
+    spawnEnemy(kind, position, options = {}) {
+      const d = difficulty(this.time), pressure = this.pressure();
+      if (pressure.total >= ATTACK_RULES.totalLimit) return null;
+      if (kind === 'bind' && pressure.bind >= 1) kind = 'spear';
+      const wideLimit = pressure.heavyBind ? 1 : ATTACK_RULES.wideLimit;
+      if (WIDE_SKILLS.includes(kind) && pressure.wide >= wideLimit) kind = 'spear';
+      let root = options.root ?? (this.time > 50 && this.rng() < 0.22 ? 2 : this.rng() < 0.5 ? 0.5 : 1);
+      if (kind === 'bind' && root === 2 && pressure.wide >= 2) root = 1;
+      const charge = options.charge ?? (kind === 'beam' ? Math.max(1.3, d.charge+.25) : d.charge);
+      let fireAt = this.time+charge+(options.stagger||0)+(root===2 && kind==='bind'?.35:0);
+      let burstDelay = 0;
+      if (WIDE_SKILLS.includes(kind)) {
+        const reservation = this.reserveWideTime(kind,fireAt);
+        if (!reservation) { kind='spear'; fireAt=this.time+(options.charge??d.charge)+(options.stagger||0); }
+        else { fireAt=reservation.fireAt; burstDelay=reservation.burstDelay; }
+      }
+      const e = { id: ++this.id, kind, ...position, born: this.time, fireAt, burstDelay,
+        lockBefore: kind==='beam'?.95:kind==='burst'?.4:distance(position,this.player)<260?.65:.32,
+        fired:false, locked:false, root, ...this.aim(position) };
+      this.enemies.push(e); this.stats.spawned++; return e;
+    }
+    spawnWave() {
+      const d = difficulty(this.time);
+      const count = d.min + Math.floor(this.rng() * (d.max-d.min+1));
+      const types = this.time<12?['spear','spear','beam','bind']:['spear','beam','wave','bind','burst'];
+      const offset = Math.floor(this.rng()*4); let spawned=0;
+      for(let i=0;i<count && this.enemies.length<30;i++){
+        const side=(offset+i)%4, f=.08+this.rng()*.84;
+        const position=side===0?{x:75+f*1450,y:133,side}
+          :side===1?{x:1540,y:160+f*630,side}
+          :side===2?{x:75+f*1450,y:FIELD.bottom-20,side}:{x:60,y:160+f*630,side};
+        if(this.spawnEnemy(types[Math.floor(this.rng()*types.length)],position,{stagger:i*.10}))spawned++;
+      }
+      this.wave++;this.emit('wave',{count:spawned});
+      this.nextWave=this.time+d.interval*(.9+this.rng()*.2);
+    }
+    forecastAttack(e) {
+      const skill=SKILLS[e.kind], burst=e.kind==='burst';
+      return {kind:e.kind,x:burst?e.target.x:e.x,y:burst?e.target.y:e.y,
+        dx:e.dx,dy:e.dy,speed:(skill.speed||0)*difficulty(e.fireAt).speed,
+        radius:skill.radius,width:skill.width||0,length:1900,
+        age:0,starts:e.fireAt-this.time,delay:e.burstDelay,
+        life:burst?e.burstDelay+.4:e.kind==='beam'?.32:7};
+    }
+    forecastPosition(a, after) {
+      const start=a.starts||0;
+      if(after<start)return null;
+      const projectile=['spear','bind','wave'].includes(a.kind);
+      const elapsed=after-start;
+      const slowed=projectile?Math.max(0,Math.min(after,this.slowUntil-this.time)-Math.max(0,start)):0;
+      const travel=elapsed-slowed*.5, age=a.age+travel;
+      if(age>a.life || (a.kind==='burst' && age<a.delay))return null;
+      return {x:a.x+a.dx*a.speed*travel,y:a.y+a.dy*a.speed*travel};
+    }
+    routeHit(a, point, previous, after, before) {
+      const pos=this.forecastPosition(a,after);
+      if(!pos)return false;
+      const padding=this.player.r+6;
+      if(a.kind==='beam')return segmentDistance(point.x,point.y,pos.x,pos.y,pos.x+a.dx*a.length,pos.y+a.dy*a.length)<padding+a.radius;
+      if(a.kind==='burst')return distance(point,pos)<padding+a.radius;
+      const prior=this.forecastPosition(a,before)||pos;
+      const rx=point.x-pos.x,ry=point.y-pos.y,ox=previous.x-prior.x,oy=previous.y-prior.y;
+      if(a.kind==='wave'){
+        const along=rx*a.dx+ry*a.dy,oldAlong=ox*a.dx+oy*a.dy;
+        const across=-rx*a.dy+ry*a.dx,oldAcross=-ox*a.dy+oy*a.dx;
+        return Math.min(along,oldAlong)<padding+a.radius && Math.max(along,oldAlong)>-padding-a.radius &&
+          Math.min(across,oldAcross)<a.width/2+padding && Math.max(across,oldAcross)>-a.width/2-padding;
+      }
+      return segmentDistance(0,0,ox,oy,rx,ry)<padding+a.radius;
+    }
+    hasEscape(candidate) {
+      // Local straight/stop routes, sampled over time. Not a global pathfinding guarantee.
+      const proposed=this.forecastAttack(candidate), p=this.player;
+      const impact=candidate.kind==='burst'?candidate.burstDelay:candidate.kind==='wave'?distance(p,candidate)/proposed.speed:.32;
+      const horizon=clamp(candidate.fireAt-this.time+impact+.4,1.2,4);
+      const threats=[...this.attacks.filter(a=>!a.dead&&!a.hit),
+        ...this.enemies.filter(e=>!e.fired&&e.locked&&e!==candidate).map(e=>this.forecastAttack(e)),proposed];
+      const reaction=Math.max(.15,p.rootUntil-this.time);
+      const speed=355*(1+this.upgrades.speed*.04);
+      const reach=Math.min(380,Math.max(0,horizon-reaction)*speed);
+      const destinations=[{x:p.x,y:p.y}];
+      for(const fraction of [.5,1])for(let i=0;i<16;i++){
+        const angle=i*Math.PI/8;
+        destinations.push({x:clamp(p.x+Math.cos(angle)*reach*fraction,FIELD.left+MOVE_PAD.x,FIELD.right-MOVE_PAD.x),
+          y:clamp(p.y+Math.sin(angle)*reach*fraction,FIELD.top+MOVE_PAD.top,FIELD.bottom-MOVE_PAD.bottom)});
+      }
+      for(const target of destinations){
+        const length=distance(p,target);let previous={x:p.x,y:p.y},safe=true;
+        const steps=Math.ceil(horizon/.05),dt=horizon/steps;
+        for(let i=1;i<=steps;i++){
+          const t=i*dt, progress=length?Math.min(1,Math.max(0,t-reaction)*speed/length):0;
+          const point={x:p.x+(target.x-p.x)*progress,y:p.y+(target.y-p.y)*progress};
+          if(threats.some(a=>this.routeHit(a,point,previous,t,t-dt))){safe=false;break;}
+          previous=point;
+        }
+        if(safe)return true;
+      }
+      return false;
+    }
+    fire(e) {
+      e.fired = true; e.leaveAt = this.time + 0.62;
+      const s = SKILLS[e.kind], d = difficulty(this.time);
+      const a = { id: ++this.id, kind: e.kind, x: e.x, y: e.y, dx: e.dx, dy: e.dy,
+        born: this.time, age: 0, damage: s.damage, radius: s.radius, root: e.root,
+        speed: (s.speed || 0) * d.speed, width: s.width || 0, hit: false, dead: false };
+      if (e.kind === 'beam') { a.life = 0.32; a.length = 1900; }
+      else if (e.kind === 'burst') { a.x = e.target.x; a.y = e.target.y; a.delay = e.burstDelay ?? this.burstDelay(this.time); a.life = a.delay + 0.4; }
+      else a.life = 7;
+      if(WIDE_SKILLS.includes(e.kind))this.lastWideEvent=Math.max(this.lastWideEvent,this.time+(e.kind==='burst'?a.delay:0));
+      this.attacks.push(a); this.stats.casts++;
+      this.stats.bySkill[e.kind] = (this.stats.bySkill[e.kind] || 0) + 1;
+      this.emit('cast', { kind: e.kind });
+      return a;
+    }
+    hurt(amount, source, root = 0) {
+      const p = this.player;
+      if (this.status !== 'running' || this.time < p.invulnerableUntil) return false;
+      if (this.shieldActive) {
+        this.shieldActive = false; this.stats.blocked++;
+        if (this.upgrades.shieldHaste) this.hasteUntil = this.time + 2;
+        this.emit('shieldBlock', { x: p.x, y: p.y, source }); return true;
+      }
+      const damage = Math.min(p.hp, amount); p.hp = Math.max(0, p.hp - amount);
+      p.invulnerableUntil = this.time + 0.18;
+      this.stats.hits++; this.stats.damage += damage;
+      if (root > 0 && this.time >= p.rootImmuneUntil) {
+        const duration = clamp(root, 0, 2);
+        p.rootUntil = this.time + duration;
+        p.rootImmuneUntil = p.rootUntil + 1.2;
+        this.emit('root', { duration });
+      }
+      this.emit('hit', { amount: damage, x: p.x, y: p.y, source });
+      if (p.hp === 0) { this.status = 'dead'; this.killedBy = source; this.emit('death'); }
+      return true;
+    }
+    tryHeal() {
+      if (this.time < 18 || this.pickups.some(h => !h.kind || h.kind === 'heal')) return false;
+      return this.spawnPickup('heal');
+    }
+    tick(dt, input = {}) {
+      if (this.status !== 'running' || !Number.isFinite(dt) || dt <= 0) return;
+      let left = Math.min(dt, 0.25);
+      while (left > 1e-8 && this.status === 'running') {
+        const step = Math.min(left, 1 / 120); this.step(step, input); left -= step;
+      }
+    }
+    step(dt, input) {
+      this.time += dt;
+      const p = this.player;
+      let dx = Number(!!input.right) - Number(!!input.left), dy = Number(!!input.down) - Number(!!input.up);
+      const n = Math.hypot(dx, dy) || 1;
+      const speed = this.time < p.rootUntil ? 0 : 355 * (1 + this.upgrades.speed * 0.04 + (this.hasteUntil > this.time ? .15 : 0));
+      p.vx = dx / n * speed; p.vy = dy / n * speed;
+      const oldX = p.x, oldY = p.y;
+      p.x = clamp(p.x + p.vx * dt, FIELD.left + MOVE_PAD.x, FIELD.right - MOVE_PAD.x);
+      p.y = clamp(p.y + p.vy * dt, FIELD.top + MOVE_PAD.top, FIELD.bottom - MOVE_PAD.bottom);
+      this.edgeContact = speed > 0 ? (dx < 0 && p.x <= FIELD.left + MOVE_PAD.x ? 'left' : dx > 0 && p.x >= FIELD.right - MOVE_PAD.x ? 'right' : dy < 0 && p.y <= FIELD.top + MOVE_PAD.top ? 'top' : dy > 0 && p.y >= FIELD.bottom - MOVE_PAD.bottom ? 'bottom' : null) : null;
+      p.vx = (p.x - oldX) / dt; p.vy = (p.y - oldY) / dt;
+      if (!this.recordBroken && (this.previousBest === null ? this.time >= 1 : Math.floor(this.time * 10) / 10 > this.previousBest)) {
+        this.recordBroken = true; this.emit('record', { first: this.previousBest === null });
+      }
+      if (this.time >= this.nextWave) this.spawnWave();
+      const level = difficulty(this.time).level;
+      if (level > this.lastLevel) { this.lastLevel = level; this.emit('level', { level }); }
+      for (const e of this.enemies) {
+        if (e.fired) continue;
+        if (!e.locked) {
+          const lead = e.kind === 'beam' ? 0.18 : Math.min(0.7, distance(p, e) / (SKILLS[e.kind].speed || 700) * 0.5);
+          Object.assign(e, this.aim(e, lead));
+          if (this.time >= e.fireAt - e.lockBefore) {
+            if ((WIDE_SKILLS.includes(e.kind) || e.kind==='bind') && !this.hasEscape(e)) {
+              // No warning has appeared yet: quietly retire this cast, never queue it.
+              e.fired=true;e.cancelled=true;e.leaveAt=this.time+.25;continue;
+            }
+            e.locked=true;
+          }
+        }
+        if (this.time >= e.fireAt) this.fire(e);
+      }
+      this.enemies = this.enemies.filter(e => !e.fired || this.time < e.leaveAt);
+      for (const a of this.attacks) {
+        const projectile = ['spear', 'bind', 'wave'].includes(a.kind);
+        const attackDt = projectile && this.time < this.slowUntil ? dt * 0.5 : dt;
+        a.age += attackDt;
+        const ox = a.x, oy = a.y;
+        a.x += a.dx * a.speed * attackDt; a.y += a.dy * a.speed * attackDt;
+        let collision = false;
+        if (!a.hit) {
+          if (a.kind === 'beam') collision = segmentDistance(p.x, p.y, a.x, a.y, a.x + a.dx * a.length, a.y + a.dy * a.length) < p.r + a.radius;
+          else if (a.kind === 'burst') collision = a.age >= a.delay && distance(p, a) < p.r + a.radius;
+          else if (a.kind === 'wave') {
+            const rx = p.x - a.x, ry = p.y - a.y;
+            collision = Math.abs(rx * a.dx + ry * a.dy) < p.r + a.radius && Math.abs(-rx * a.dy + ry * a.dx) < a.width / 2 + p.r;
+          } else collision = segmentDistance(p.x, p.y, ox, oy, a.x, a.y) < p.r + a.radius;
+        }
+        if (collision) {
+          this.hurt(a.damage, SKILLS[a.kind].name, a.kind === 'bind' ? a.root : 0);
+          a.hit = true;
+          if (a.kind === 'spear' || a.kind === 'bind') a.dead = true;
+        }
+        if (a.age > a.life || a.x < -230 || a.x > W + 230 || a.y < -230 || a.y > H + 230) {
+          a.dead = true; if (!a.hit) this.stats.dodged++;
+        }
+      }
+      this.attacks = this.attacks.filter(a => !a.dead);
+      if (this.status !== 'running') return;
+      this.pickups = this.pickups.filter(h => this.time < h.expires);
+      if (this.time >= this.nextHealCheck) {
+        this.tryHeal(); const [min,max] = supply(this.time).heal;
+        this.nextHealCheck = this.time + min + this.rng() * (max-min);
+      }
+      if (this.time >= this.nextPower) {
+        this.spawnPickup(this.rng() < 0.5 ? 'shield' : 'slow'); const [min,max] = supply(this.time).power; this.nextPower = this.time + min + this.rng() * (max-min);
+      }
+      if (this.time >= this.nextFragment) {
+        this.spawnPickup('fragment'); const [min,max] = supply(this.time).fragment; this.nextFragment = this.time + min + this.rng() * (max-min);
+      }
+      this.pickups = this.pickups.filter(h => {
+        if (this.time >= h.expires) return false;
+        if (this.status !== 'running') return true;
+        if (distance(p, h) < this.attributes().pickupRadius) {
+          const kind = h.kind || 'heal';
+          if (kind === 'heal') {
+            const amount = Math.min(h.amount, p.maxHp - p.hp); p.hp += amount; this.stats.healing += amount;
+            this.emit('heal', { amount, x: p.x, y: p.y });
+          } else if (kind === 'fragment') {
+            this.fragments++; this.stats.fragments++; this.emit('fragment', { count: this.fragments, x:p.x, y:p.y });
+            if (this.fragments >= 3) { this.fragments -= 3; this.beginUpgrade(); }
+          } else {
+            const shieldRemoved = this.shieldActive;
+            const replaced = this.held || (shieldRemoved ? 'shield' : null);
+            this.shieldActive = false;
+            this.held = kind; this.emit('powerCollected', { kind, replaced, shieldRemoved, x:p.x, y:p.y });
+          }
+          return false;
+        }
+        return true;
+      });
+    }
+  }
+  return { Game, W, H, FIELD, MOVE_PAD, PLAYER_SCALE, WIDE_SKILLS, ATTACK_RULES, CARDS, RESERVE, SKILLS, difficulty, supply, clamp, distance, segmentDistance, seeded };
+});
+</script>
+  <script>(() => {
+  'use strict';
+  const { Game, W, H, FIELD, MOVE_PAD, PLAYER_SCALE, CARDS, RESERVE, SKILLS, difficulty, clamp, seeded } = DodgeEngine;
+  const $ = id => document.getElementById(id);
+  const canvas = $('game'), ctx = canvas.getContext('2d');
+  const game = new Game();
+  const ink = '#323735', red = '#ce633f', purple = '#8560ad', gold = '#b78a40';
+  const colors = { spear: '#bd7639', beam: red, wave: gold, bind: purple, burst: '#c8734c' };
+  const keys = new Set(), particles = [], floaters = [];
+  const qaMode = new URLSearchParams(location.search).get('qa') === '1';
+  const storageKey = 'dodge-again.records.release-01' + (qaMode ? '.qa' : '');
+  let records = [], storageAvailable = true, sound = false, audioCtx;
+  let lastStamp = 0, accumulator = 0, ambient = 0, toastUntil = 0, lastUI = 0;
+  let hitFlash = 0, guideWasRunning = false, handledDeath = false, currentResult = null;
+  let frameScale = 1, screenShake = 0;
+  let recordBannerUntil = 0, resumeAt = 0;
+  const pickupNames = { heal: '回血', shield: '护盾', slow: '时间减速', fragment: '成长碎片' };
+  const pickupColors = { heal: '#66916f', shield: '#528caf', slow: '#698d96', fragment: '#b58a43' };
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const paper = document.createElement('canvas'); paper.width = W; paper.height = H;
+  const pc = paper.getContext('2d');
+  function ellipse(c, x, y, rx, ry, fill, stroke, width = 1) {
+    c.beginPath(); c.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2);
+    if (fill) { c.fillStyle = fill; c.fill(); }
+    if (stroke) { c.strokeStyle = stroke; c.lineWidth = width; c.stroke(); }
+  }
+  function path(points, fill, stroke = ink, width = 2) {
+    ctx.beginPath(); points(ctx);
+    if (fill) { ctx.fillStyle = fill; ctx.fill(); }
+    if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = width; ctx.stroke(); }
+  }
+  function line(x1, y1, x2, y2, color, width = 1) {
+    ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.strokeStyle = color; ctx.lineWidth = width; ctx.stroke();
+  }
+  function makePaper() {
+    pc.fillStyle = '#f4eddf'; pc.fillRect(0, 0, W, H);
+    const gradient = pc.createRadialGradient(800, 430, 100, 800, 430, 970);
+    gradient.addColorStop(0, '#fff9ed88'); gradient.addColorStop(1, '#dac8a52d');
+    pc.fillStyle = gradient; pc.fillRect(0, 0, W, H);
+    const rng = seeded(216);
+    for (let i = 0; i < 32000; i++) {
+      pc.fillStyle = rng() > 0.5 ? 'rgba(123,98,66,.027)' : 'rgba(255,255,255,.1)';
+      const size = rng() * 1.9; pc.fillRect(rng() * W, rng() * H, size, size);
+    }
+    pc.lineWidth = .6; pc.strokeStyle = '#a9977630';
+    for (let y = 148; y < 850; y += 84) for (let x = 83; x < 1560; x += 94) {
+      pc.beginPath(); pc.moveTo(x - 3, y - 3); pc.lineTo(x + 3, y + 3); pc.moveTo(x - 3, y + 3); pc.lineTo(x + 3, y - 3); pc.stroke();
+    }
+    pc.fillStyle = '#a9987930';
+    pc.fillRect(0, 0, W, FIELD.top); pc.fillRect(0, FIELD.bottom, W, H-FIELD.bottom);
+    pc.fillRect(0, FIELD.top, FIELD.left, FIELD.bottom-FIELD.top);
+    pc.fillRect(FIELD.right, FIELD.top, W-FIELD.right, FIELD.bottom-FIELD.top);
+    pc.strokeStyle = '#9c8a68'; pc.lineWidth = 2;
+    pc.strokeRect(FIELD.left, FIELD.top, FIELD.right-FIELD.left, FIELD.bottom-FIELD.top);
+    pc.font = '12px "PingFang SC",sans-serif'; pc.fillStyle = '#85775d'; pc.textAlign = 'center';
+    pc.fillText('场地边界 · 沿边仍可移动', W/2, FIELD.bottom+18);
+
+  }
+  makePaper();
+  function loadRecords() {
+    try {
+      const value = JSON.parse(localStorage.getItem(storageKey) || '[]');
+      records = Array.isArray(value) ? value.filter(r => r && Number.isFinite(r.time) && r.time >= 0 && typeof r.date === 'string').sort((a,b) => b.time-a.time).slice(0,10) : [];
+    } catch { records = []; storageAvailable = false; }
+    renderBoard();
+  }
+  function renderBoard() {
+    $('best').replaceChildren(document.createTextNode(records.length ? records[0].time.toFixed(1) : '—'));
+    const unit = document.createElement('span'); unit.textContent = '秒'; $('best').append(unit);
+    const board = $('leaderboard'); board.replaceChildren();
+    if (!records.length) {
+      const empty = document.createElement('li'); empty.className = 'empty'; empty.textContent = '还没有成绩。\n第一笔纪录，等你来写。'; empty.style.whiteSpace = 'pre-line'; board.append(empty);
+    }
+    records.slice(0,3).forEach((r, i) => {
+      const li = document.createElement('li'), rank = document.createElement('em'), name = document.createElement('span'), time = document.createElement('strong');
+      rank.textContent = String(i + 1).padStart(2, '0'); name.textContent = '你'; time.textContent = r.time.toFixed(1) + ' s'; li.append(rank, name, time); board.append(li);
+    });
+    $('storage-note').textContent = storageAvailable ? '每次挑战，留下一点进步。' : '浏览器未允许保存；本次页面内仍可记录。';
+  }
+  function saveResult() {
+    const time = Math.floor(game.time * 10) / 10;
+    const previousBest = records[0]?.time ?? 0;
+    const rank = records.filter(r => r.time > time).length + 1;
+    const result = { time, date: new Date().toISOString(), wave: game.wave };
+    records.push(result); records.sort((a,b) => b.time-a.time); records = records.slice(0,10);
+    try { localStorage.setItem(storageKey, JSON.stringify(records)); }
+    catch { storageAvailable = false; }
+    renderBoard();
+    currentResult = { rank: rank > 10 ? '10+' : String(rank), best: time > previousBest, time };
+    return currentResult;
+  }
+  function soundEffect(type) {
+    if (!sound) return;
+    try {
+      audioCtx ||= new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const o = audioCtx.createOscillator(), g = audioCtx.createGain(); o.connect(g); g.connect(audioCtx.destination);
+      const now = audioCtx.currentTime;
+      const tones = { hit:[145,70,.11,'triangle'], heal:[510,900,.22,'sine'], beam:[290,110,.17,'sawtooth'], bind:[230,160,.1,'sine'], start:[430,650,.11,'sine'], death:[160,45,.5,'triangle'], level:[450,620,.13,'sine'] };
+      const [a,b,d,t] = tones[type] || [280,190,.05,'triangle'];
+      o.type = t; o.frequency.setValueAtTime(a,now); o.frequency.exponentialRampToValueAtTime(b,now+d);
+      g.gain.setValueAtTime(.0001,now); g.gain.exponentialRampToValueAtTime(type==='hit' ? .08 : .025,now+.012); g.gain.exponentialRampToValueAtTime(.0001,now+d);
+      o.start(now); o.stop(now+d+.015);
+    } catch { sound = false; $('sound').innerHTML = '音效 <span>不可用</span>'; }
+  }
+  function toast(text, duration = 2.5) {
+    $('toast').textContent = text; $('toast').classList.add('visible'); toastUntil = performance.now() + duration * 1000;
+  }
+  function start() {
+    keys.clear(); particles.length = 0; floaters.length = 0; handledDeath = false; hitFlash = 0; screenShake = 0; accumulator = 0;
+    for (const id of ['menu','pause-panel','result','guide-panel','upgrade-panel','record-banner']) $(id).hidden = true;
+    $('hud').hidden = false; $('run-tools').hidden = false;
+    resumeAt = 0; $('resume-countdown').hidden = true; game.start(records[0]?.time ?? null); canvas.focus({ preventScroll: true });
+    toast('WASD 移动 · 敌人即将登场', 2); soundEffect('start'); updateHUD();
+  }
+  function pause(automatic = false) {
+    if (game.status !== 'running') return;
+    keys.clear(); game.pause(); resumeAt = 0; $('resume-countdown').hidden = true; $('pause-panel').hidden = false; showAttributes(); $('resume').focus({preventScroll:true});
+    if (automatic) toast('已自动暂停，回来后继续');
+  }
+  function resume() {
+    if (game.status !== 'paused') return;
+    keys.clear(); $('pause-panel').hidden = true; game.resume(); beginCountdown(); accumulator = 0; canvas.focus({preventScroll:true});
+  }
+  function home() {
+    keys.clear(); resumeAt = 0; $('resume-countdown').hidden = true; game.reset(); particles.length = 0; floaters.length = 0;
+    for (const id of ['hud','pause-panel','result','guide-panel','upgrade-panel','run-tools','record-banner']) $(id).hidden = true;
+    guideWasRunning = false;
+    $('menu').hidden = false; $('toast').classList.remove('visible'); renderBoard();
+  }
+  function die() {
+    if (handledDeath) return; handledDeath = true; keys.clear();
+    updateHUD();
+    const r = saveResult();
+    $('result-tag').textContent = r.best ? 'A NEW PERSONAL BEST!' : 'ONE MORE TRY?';
+    $('result-time').textContent = r.time.toFixed(1);
+    $('death-reason').textContent = '最后一击：' + game.killedBy + '。下次，早点变向。';
+    $('result-wave').textContent = game.wave; $('result-dodged').textContent = game.stats.dodged; $('result-rank').textContent = r.rank;
+    $('result-save').textContent = storageAvailable ? '已保存到本机排行榜 · 成绩不与其他玩家共享' : '存储不可用，成绩仅保留在本次页面中';
+    $('result').hidden = false; soundEffect('death');
+  }
+  function formatClock(t) { return String(Math.floor(t/60)).padStart(2,'0') + ':' + (t%60).toFixed(1).padStart(4,'0'); }
+  function cardChange(kind) {
+    const u = game.upgrades, a = game.attributes();
+    return ({health: `${a.maxHp} → ${a.maxHp+100} 生命上限`, speed: `移速 +${a.speedBonus}% → +${a.speedBonus+4}%`,
+      duration: `${a.powerDuration} → ${a.powerDuration+.5} 秒`, reach: `拾取范围 +${a.pickupBonus}% → +${a.pickupBonus+25}%`,
+      shieldHaste: '格挡后：加速 15% · 2 秒', slowHeal: '使用减速：回复 60 生命', reserve: `${a.maxHp} → ${a.maxHp+25} 生命上限`})[kind];
+  }
+  function beginCountdown() {
+    resumeAt = performance.now() + 1000; $('resume-countdown').hidden = false;
+    $('resume-countdown').textContent = '准备走位 · 1';
+  }
+  function showAttributes() {
+    const a = game.attributes();
+    $('attribute-values').textContent = `生命上限 ${a.maxHp}　·　移速 +${a.speedBonus}%　·　拾取范围 +${a.pickupBonus}%　·　减速持续 ${a.powerDuration} 秒`;
+    const list = $('owned-cards'); list.replaceChildren();
+    for (const [kind,level] of Object.entries(game.upgrades)) if (level) {
+      const li = document.createElement('li'); li.textContent = `${CARDS[kind].name} ${level}/${CARDS[kind].cap} · ${CARDS[kind].detail}`; list.append(li);
+    }
+    if (game.reserve) { const li = document.createElement('li'); li.textContent = `续航储备 ${game.reserve} 次 · 额外生命上限 +${game.reserve*25}`; list.append(li); }
+    $('no-growth').hidden = list.children.length > 0;
+  }
+  function showUpgrades(focusSlot = 0, refreshing = false) {
+    keys.clear(); accumulator = 0;
+    $('upgrade-panel').hidden = false;
+    const grid = $('upgrade-grid'); grid.replaceChildren();
+    game.offers.forEach((kind, slot) => {
+      const data = CARDS[kind] || RESERVE, wrap = document.createElement('div'); wrap.className = 'upgrade-option';
+      const choose = document.createElement('button'); choose.className = 'upgrade-card'; choose.id = 'upgrade-' + kind; choose.dataset.upgrade = kind;
+      const icon = document.createElement('i'), name = document.createElement('b'), value = document.createElement('strong'), detail = document.createElement('span'), level = document.createElement('small');
+      icon.textContent = data.icon; name.textContent = data.name; value.textContent = cardChange(kind); detail.textContent = data.detail;
+      level.textContent = kind === 'reserve' ? '全部成长满级后的持续补给' : `${data.branch} · 当前 ${game.upgrades[kind]}/${data.cap} 级`;
+      const action = document.createElement('em'); action.textContent = `选择 · ${slot+1}`;
+      choose.append(icon,name,value,detail,level,action); choose.addEventListener('click',()=>chooseUpgrade(kind));
+      const refresh = document.createElement('button'); refresh.className = 'reroll'; refresh.dataset.slot = slot;
+      refresh.disabled = !game.canReroll(slot); refresh.textContent = game.rerolled[slot] ? '已刷新 · 0 次' : refresh.disabled ? '暂无其他可替换卡片' : '↻ 刷新 · 1 次';
+      refresh.setAttribute('aria-label', `刷新第 ${slot+1} 张卡片`);
+      refresh.addEventListener('click',()=>{ if(game.reroll(slot)) { showUpgrades(slot,true); $('upgrade-feedback').textContent = `第 ${slot+1} 张已替换为${CARDS[game.offers[slot]].name}`; soundEffect('level'); } });
+      wrap.append(choose,refresh); grid.append(wrap);
+    });
+    if (!refreshing) $('upgrade-feedback').textContent = game.offers.length < 3 ? '部分能力已满级，仅展示剩余可选成长。' : '每张卡可独立刷新一次 · 选择一张即可继续';
+    grid.children[focusSlot]?.querySelector('.upgrade-card').focus({preventScroll:true}); updateHUD();
+  }
+  function chooseUpgrade(kind) {
+    if (!game.chooseUpgrade(kind)) return;
+    $('upgrade-panel').hidden = true; keys.clear(); accumulator = 0; beginCountdown();
+    canvas.focus({preventScroll:true}); processEvents(); updateHUD();
+  }
+  function usePower() {
+    if (performance.now() >= resumeAt && $('guide-panel').hidden && game.usePower()) { processEvents(); updateHUD(); }
+  }
+  function updateHUD() {
+    const p = game.player, d = difficulty(game.time);
+    $('hp').textContent = Math.ceil(p.hp); $('max-hp').textContent = '/ ' + p.maxHp;
+    $('health-fill').style.width = p.hp / p.maxHp * 100 + '%'; $('health-fill').classList.toggle('low', p.hp <= 450);
+    $('clock').textContent = formatClock(game.time);
+    $('level').textContent = '强度 ' + String(d.level).padStart(2,'0'); $('wave').textContent = '第 ' + game.wave + ' 批';
+    $('pace-fill').style.width = (game.time % 15) / 15 * 100 + '%';
+    $('control').textContent = p.rootUntil > game.time ? '定身 ' + (p.rootUntil-game.time).toFixed(1) + 's' : p.rootImmuneUntil > game.time ? '防连控' : '';
+    $('record-badge').hidden = !game.recordBroken;
+    $('record-badge').textContent = game.previousBest === null ? '✦ 正在创造首个纪录' : '✦ 新纪录';
+    $('power-label').textContent = game.held ? pickupNames[game.held] + ' · 空格使用' : game.shieldActive ? '护盾保护中 · 可抵挡 1 次' : '技能槽为空 · 去捡技能包';
+    $('use-power').dataset.kind = game.held || (game.shieldActive ? 'shield' : '');
+    $('use-power').classList.toggle('protecting', game.shieldActive);
+    $('use-power').disabled = !game.held || game.status !== 'running' || (game.held === 'shield' && game.shieldActive) || (game.held === 'slow' && game.slowUntil > game.time);
+    const buffs = [];
+    if (game.shieldActive) buffs.push('护盾 · 可抵挡 1 次');
+    if (game.slowUntil > game.time) buffs.push('减速 ' + (game.slowUntil-game.time).toFixed(1) + 's');
+    if (game.hasteUntil > game.time) buffs.push('疾行 ' + (game.hasteUntil-game.time).toFixed(1) + 's');
+    $('active-power').textContent = buffs.join(' · ');
+    $('fragment-count').textContent = game.fragments + ' / 3';
+    $('growth-summary').textContent = '成长 ' + Object.values(game.upgrades).reduce((a,b)=>a+b,0) + ' 次 · 移速 +' + game.upgrades.speed*4 + '%';
+  }
+  function burstParticles(x, y, color, amount = 12) {
+    for (let i = 0; i < amount; i++) { const angle = Math.random()*Math.PI*2, speed = 25+Math.random()*100;
+      particles.push({x,y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,life:.35+Math.random()*.3,max:.65,color}); }
+  }
+  function pickupFeedback(x, y, color, text, subtitle = '') {
+    burstParticles(x, y, color, 16);
+    const nearby = floaters.filter(f => f.pickup && Math.abs(f.anchorX-x)<150 && Math.abs(f.anchorY-y)<130);
+    if (nearby.length >= 3) floaters.splice(floaters.indexOf(nearby.shift()),1);
+    let lane = 0; while (nearby.some(f=>f.lane===lane)) lane++;
+    const below = y < FIELD.top+150;
+    floaters.push({x:clamp(x,FIELD.left+120,FIELD.right-120),
+      y: below ? y+55+lane*42 : y-45-lane*42,
+      anchorX:x,anchorY:y,lane,pickup:true,subtitle,text,color,life:1.2,below});
+    soundEffect('heal');
+  }
+  function processEvents() {
+    for (const e of game.drainEvents()) {
+      if (e.type === 'hit') { hitFlash = .2; screenShake = reducedMotion ? 0 : 4; burstParticles(e.x,e.y,red); floaters.push({x:e.x,y:e.y-38,text:'−'+e.amount,color:red,life:.9}); soundEffect('hit'); }
+      if (e.type === 'heal') pickupFeedback(e.x,e.y,'#518560',e.amount>0?'+'+e.amount:'满血 · 血包已拾取');
+      if (e.type === 'pickupSpawn') toast(pickupNames[e.kind] + '出现 · 8 秒后消失', 1.7);
+      if (e.type === 'powerCollected') { pickupFeedback(e.x,e.y,pickupColors[e.kind],(e.replaced?'替换为':'拾取')+(e.kind==='slow'?'减速':'护盾'),'空格启用'); updateHUD(); }
+      if (e.type === 'powerUsed') { toast(e.kind === 'shield' ? '护盾生效 · 抵挡下一次攻击，拾取新技能包会替换' : pickupNames[e.kind] + '生效 · ' + e.duration + ' 秒', 2); soundEffect('start'); }
+      if (e.type === 'shieldBlock') { burstParticles(e.x,e.y,'#659eb9',16); floaters.push({x:e.x,y:e.y-40,text:'护盾破裂 · 已格挡',color:'#287caa',life:1}); soundEffect('heal'); }
+      if (e.type === 'fragment') pickupFeedback(e.x,e.y,gold,'碎片 '+e.count+' / 3',e.count===3?'已集齐 · 即将选择成长':'');
+      if (e.type === 'upgradeReady') showUpgrades();
+      if (e.type === 'upgradeChosen') { toast('已获得：' + (CARDS[e.kind] || RESERVE).name, 2.2); soundEffect('level'); }
+      if (e.type === 'record') {
+        $('record-banner').textContent = e.first ? '✦ 第一场挑战，正在写下你的纪录。' : '✦ 新纪录！已经超过 ' + game.previousBest.toFixed(1) + ' 秒';
+        $('record-banner').hidden = false; recordBannerUntil = performance.now() + 3200; updateHUD(); soundEffect('level');
+      }
+      // Root countdown stays beside the player, without a competing fixed-duration toast.
+      if (e.type === 'level') { toast('强度提升 · ' + String(e.level).padStart(2,'0'), 1.7); soundEffect('level'); }
+      if (e.type === 'cast') soundEffect(e.kind);
+      if (e.type === 'death') die();
+    }
+  }
+  function drawBean(x,y,scale=PLAYER_SCALE,p=game.player) {
+    ctx.save(); ctx.translate(x,y); ctx.scale(scale,scale);
+    const moving = Math.hypot(p.vx,p.vy)>5 && game.status==='running';
+    const step = moving ? Math.sin(game.time*20) : 0;
+    ellipse(ctx,0,20,21,6,'#63583b20');
+    ctx.rotate(moving ? p.vx / 355 * .07 : 0);
+    if (game.time < p.invulnerableUntil && Math.floor(game.time*35)%2) ctx.globalAlpha=.55;
+    ctx.lineCap='round'; line(-8,15,-10-step*3,25,ink,3); line(9,15,11+step*3,25,ink,3);
+    path(c=>{c.moveTo(-18,7);c.bezierCurveTo(-22,-10,-13,-28,0,-28);c.bezierCurveTo(16,-28,21,-10,19,9);c.quadraticCurveTo(15,22,4,17);c.quadraticCurveTo(-12,22,-18,7);},'#83b8d6',ink,2.5);
+    path(c=>{c.moveTo(-11,-18);c.quadraticCurveTo(-3,-25,4,-20);},null,'#c7e3ed',3);
+    line(-18,1,-22,10,ink,2.5); line(19,0,23,8,ink,2.5);
+    const eyeX=clamp(p.vx/180,-2,2),eyeY=clamp(p.vy/220,-1.5,1.5);
+    ellipse(ctx,-7,-10,5,6,'#fff9e8',ink,1);ellipse(ctx,7,-10,5,6,'#fff9e8',ink,1);
+    ellipse(ctx,-7+eyeX,-10+eyeY,1.8,2.4,ink);ellipse(ctx,7+eyeX,-10+eyeY,1.8,2.4,ink);
+    path(c=>{c.moveTo(-2,2);c.quadraticCurveTo(1,4,4,1);},null,ink,1.4);
+    ellipse(ctx,-12,-1,3,1.4,'#d69d9877');ellipse(ctx,13,-1,3,1.4,'#d69d9877');
+    ctx.restore();
+    if (p.rootUntil > game.time && game.status !== 'ready') {
+      ctx.save();ctx.translate(x,y);ctx.scale(scale,scale);ctx.strokeStyle=purple;ctx.lineWidth=2.5;ctx.setLineDash([6,4]);ellipse(ctx,0,21,28,9,null,purple,2);ctx.setLineDash([]);
+      line(-23,12,20,-6,purple,2);line(-20,-4,20,14,purple,2);ctx.restore();
+      ctx.font='bold 16px "PingFang SC",sans-serif'; ctx.textAlign='center'; ctx.fillStyle=purple;
+      ctx.fillText('定身 ' + Math.max(.1,p.rootUntil-game.time).toFixed(1) + 's',x,y+53>FIELD.bottom?y-43:y+53);
+    } else if (p.rootImmuneUntil > game.time && game.status !== 'ready') ellipse(ctx,x,y+21*scale,26*scale,8*scale,null,'#8868ad77',1.5);
+  }
+  function drawEnemy(e) {
+    const age=game.time-e.born;
+    const alpha=e.fired ? clamp((e.leaveAt-game.time)/.62,0,1) : clamp(age/.25,0,1);
+    ctx.save();ctx.translate(e.x,e.y);ctx.globalAlpha=alpha;
+    if(e.fired)ctx.translate(e.side===1? (1-alpha)*18:e.side===3? -(1-alpha)*18:0,e.side===0?-(1-alpha)*15:e.side===2?(1-alpha)*15:0);
+    const col=colors[e.kind];ellipse(ctx,0,17,24,6,'#6652371f');
+    if(!e.fired){ctx.beginPath();ctx.ellipse(0,18,28,10,0,-Math.PI/2,-Math.PI/2+Math.PI*2*clamp(age/(e.fireAt-e.born),0,1));ctx.strokeStyle=col+'b0';ctx.lineWidth=2;ctx.stroke();}
+    line(-7,14,-10,22,ink,2);line(7,14,10,22,ink,2);
+    const robe=e.kind==='bind'?'#9b85b3':e.kind==='beam'?'#bc7d65':e.kind==='wave'?'#bda875':e.kind==='burst'?'#ac8b7d':'#bca58c';
+    path(c=>{c.moveTo(-8,-8);c.quadraticCurveTo(-15,3,-19,16);c.quadraticCurveTo(0,23,19,14);c.lineTo(8,-9);c.closePath();},robe,ink,2);
+    ellipse(ctx,0,-15,10,12,'#e9ddc4',ink,2);
+    if(e.kind==='bind'||e.kind==='burst'){
+      path(c=>{c.moveTo(-13,-11);c.lineTo(-7,-30);c.lineTo(3,-38);c.lineTo(16,-10);c.quadraticCurveTo(6,-21,-13,-11);},robe,ink,2);
+    } else if(e.kind==='beam') { path(c=>{c.moveTo(-8,-23);c.quadraticCurveTo(0,-33,9,-23);},null,ink,2); }
+    ellipse(ctx,-3,-15,1.8,2.2,ink);ellipse(ctx,4,-15,1.8,2.2,ink);
+    const angle=Math.atan2(e.dy,e.dx);ctx.save();ctx.translate(0,-2);ctx.rotate(angle);
+    line(4,0,22,0,ink,3);
+    if(e.kind==='spear') {line(12,0,40,0,'#956b43',3);path(c=>{c.moveTo(46,0);c.lineTo(35,-4);c.lineTo(37,0);c.lineTo(35,4);c.closePath();},'#b78f56',ink,1);}
+    else {ellipse(ctx,25,0,6,6,col,ink,1.3);if(e.locked&&!e.fired)ellipse(ctx,25,0,10+Math.sin(ambient*18)*2,10+Math.sin(ambient*18)*2,null,col+'88',2);}
+    ctx.restore();ctx.restore();
+  }
+  function drawWarnings() {
+    for(const e of game.enemies){
+      if(e.fired||!e.locked)continue;
+      const progress=clamp(1-(e.fireAt-game.time)/e.lockBefore,0,1), col=colors[e.kind];
+      if(e.kind==='beam'){
+        ctx.save();ctx.translate(e.x,e.y);ctx.rotate(Math.atan2(e.dy,e.dx));
+        ctx.fillStyle='rgba(204,99,63,'+(.065+progress*.07)+')';ctx.fillRect(0,-19,1900,38);
+        ctx.setLineDash([9,9]);line(0,-19,1900,-19,col+'9c',1);line(0,19,1900,19,col+'9c',1);ctx.setLineDash([]);
+        line(0,0,1900,0,col+'55',1);
+        ctx.globalAlpha=.2+progress*.3;for(let x=0;x<1800*progress;x+=34){line(x,-14,x+13,14,col,2);}ctx.restore();
+      }else if(e.kind==='burst'){
+        ctx.save();ctx.setLineDash([5,8]);ellipse(ctx,e.target.x,e.target.y,SKILLS.burst.radius,SKILLS.burst.radius,null,col+'77',1.3);ctx.restore();
+      }else{
+        const length=e.kind==='wave'?160:125;ctx.save();ctx.setLineDash([4,9]);line(e.x,e.y,e.x+e.dx*length,e.y+e.dy*length,col+'88',1.5);ctx.restore();
+      }
+    }
+  }
+  function drawAttack(a) {
+    const col=colors[a.kind];
+    ctx.save();ctx.translate(a.x,a.y);
+    if(a.kind==='burst'){
+      const progress=clamp(a.age/a.delay,0,1),r=a.radius;
+      if(a.age<a.delay){
+        ellipse(ctx,0,0,r,r,'#c8734c10',col+'ae',2);
+        ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,r,-Math.PI/2,-Math.PI/2+Math.PI*2*progress);ctx.closePath();ctx.fillStyle='#c8734c24';ctx.fill();
+        ctx.setLineDash([4,7]);ellipse(ctx,0,0,r-8,r-8,null,col+'88',1);ctx.setLineDash([]);
+        line(-8,0,8,0,col,1.5);line(0,-8,0,8,col,1.5);
+      }else{
+        const fade=1-(a.age-a.delay)/.4;ctx.globalAlpha=fade;ellipse(ctx,0,0,r,r,'#d5774960',col,3);
+        for(let i=0;i<12;i++){const angle=i/12*Math.PI*2;line(Math.cos(angle)*r*.3,Math.sin(angle)*r*.3,Math.cos(angle)*r*.9,Math.sin(angle)*r*.9,'#f6dfb4',3);}
+        ellipse(ctx,0,0,r*(1.1-fade*.3),r*(1.1-fade*.3),null,col,2);
+      }
+      ctx.restore();return;
+    }
+    ctx.rotate(Math.atan2(a.dy,a.dx));
+    if(a.kind==='spear'){
+      const gradient=ctx.createLinearGradient(-115,0,20,0);gradient.addColorStop(0,'#bc8e4300');gradient.addColorStop(1,'#bc8e43aa');
+      line(-115,0,19,0,gradient,3);line(-28,0,14,0,'#885e34',2.5);
+      path(c=>{c.moveTo(27,0);c.lineTo(10,-5);c.lineTo(14,0);c.lineTo(10,5);c.closePath();},'#dec183',ink,1.3);
+      line(-24,-4,-18,0,'#947146',2);line(-24,4,-18,0,'#947146',2);
+    }else if(a.kind==='bind'){
+      for(let i=5;i>=1;i--)ellipse(ctx,-i*9,Math.sin(a.age*17-i)*3,12-i,10-i,col+(32-i*4).toString(16).padStart(2,'0'));
+      ellipse(ctx,0,0,18,18,'#8560ad1a');ellipse(ctx,0,0,13,13,'#79549b',ink,1.8);
+      ellipse(ctx,0,0,7,7,'#c7b2df');ellipse(ctx,-2,-3,3,3,'#f8edff');
+      ctx.setLineDash([4,7]);ellipse(ctx,0,0,20,20,null,'#8560ad66',1);ctx.setLineDash([]);
+    }else if(a.kind==='wave'){
+      const half=a.width/2;
+      path(c=>{c.moveTo(-17,-half);c.quadraticCurveTo(43,0,-17,half);c.quadraticCurveTo(8,0,-17,-half);},'#d2ae6350',gold,2.2);
+      path(c=>{c.moveTo(-16,-half+7);c.quadraticCurveTo(22,0,-16,half-7);},null,'#fff4c5',3);
+      path(c=>{c.moveTo(-35,-half+12);c.quadraticCurveTo(2,0,-35,half-12);},null,'#b78a4040',2);
+    }else if(a.kind==='beam'){
+      ctx.globalAlpha=Math.min(1,(a.life-a.age)/.15);ctx.fillStyle='#cd5b3850';ctx.fillRect(0,-25,1900,50);
+      ctx.fillStyle='#d76e43';ctx.fillRect(0,-18,1900,36);ctx.fillStyle='#f5c27c';ctx.fillRect(0,-9,1900,18);ctx.fillStyle='#fff4d6';ctx.fillRect(0,-3,1900,6);
+    }
+    ctx.restore();
+  }
+  function drawPickup(h) {
+    const kind=h.kind||'heal',col=pickupColors[kind],remaining=Math.max(0,h.expires-game.time);
+    ctx.save();ctx.translate(h.x,h.y);
+    ellipse(ctx,0,18,19,5,col+'22');ellipse(ctx,0,0,27,27,null,col+'35',1.5);
+    ctx.beginPath();ctx.arc(0,0,28,-Math.PI/2,-Math.PI/2+Math.PI*2*clamp(remaining/8,0,1));ctx.strokeStyle=col;ctx.lineWidth=2;ctx.stroke();
+    ctx.save();ctx.translate(0,Math.sin(game.time*3)*2);
+    if(remaining<=3&&!reducedMotion)ctx.globalAlpha=.65+.35*Math.sin(game.time*14);
+    if(kind==='heal'){
+      path(c=>{c.moveTo(-5,-19);c.lineTo(-5,-11);c.bezierCurveTo(-24,-3,-17,21,0,20);c.bezierCurveTo(18,21,24,-3,5,-11);c.lineTo(5,-19);c.closePath();},'#79a384',ink,1.8);
+      ctx.fillStyle='#b9ca99';ctx.fillRect(-7,-22,14,5);ctx.strokeStyle=ink;ctx.lineWidth=1.4;ctx.strokeRect(-7,-22,14,5);
+      line(-6,3,6,3,'#f9f5df',4);line(0,-3,0,9,'#f9f5df',4);
+    }else if(kind==='shield'){
+      path(c=>{c.moveTo(0,-21);c.quadraticCurveTo(9,-14,17,-15);c.lineTo(16,0);c.quadraticCurveTo(13,15,0,22);c.quadraticCurveTo(-13,15,-16,0);c.lineTo(-17,-15);c.quadraticCurveTo(-9,-14,0,-21);},'#87b4ca',ink,1.8);
+      path(c=>{c.moveTo(0,-12);c.lineTo(0,12);c.moveTo(-7,-6);c.lineTo(7,-6);},null,'#f8f6e4',2.5);
+    }else if(kind==='slow'){
+      ellipse(ctx,0,0,20,20,'#afc8c5',ink,1.8);ellipse(ctx,0,0,15,15,'#eff2df',col,1);
+      line(0,0,0,-10,col,2.5);line(0,0,8,4,col,2.5);ellipse(ctx,0,0,2.5,2.5,col);
+      for(let i=0;i<4;i++){const angle=i*Math.PI/2;line(Math.cos(angle)*12,Math.sin(angle)*12,Math.cos(angle)*15,Math.sin(angle)*15,col,1);}
+    }else{
+      path(c=>{c.moveTo(0,-23);c.lineTo(15,-2);c.lineTo(0,23);c.lineTo(-15,-2);c.closePath();},'#e1c584',ink,1.6);
+      path(c=>{c.moveTo(0,-23);c.lineTo(0,23);c.moveTo(-15,-2);c.lineTo(15,-2);},null,'#fff4ca',1.5);
+    }
+    ctx.restore();
+    ctx.fillStyle='#f9f2e5ee';ctx.fillRect(-58,34,116,34);
+    ctx.font='600 14px "PingFang SC",sans-serif';ctx.textAlign='center';ctx.fillStyle=remaining<=3?red:col;
+    ctx.fillText(pickupNames[kind]+' '+remaining.toFixed(1)+'s',0,48);
+    if(game.held&&['shield','slow'].includes(kind)){ctx.font='11px "PingFang SC",sans-serif';ctx.fillStyle='#978770';ctx.fillText('拾取替换当前' + pickupNames[game.held],0,64);}
+    ctx.restore();
+  }
+  function render() {
+    ctx.setTransform(frameScale,0,0,frameScale,0,0);ctx.clearRect(0,0,W,H);ctx.drawImage(paper,0,0);
+    ctx.save();
+    if(screenShake>0)ctx.translate(Math.sin(ambient*100)*screenShake,Math.cos(ambient*87)*screenShake*.5);
+    if(game.status==='ready'){
+      // A quiet sketch in the margins of the opening page, not an active match.
+      const samples=[{kind:'spear',x:95,y:205,dx:.9,dy:.3,side:3},{kind:'bind',x:1490,y:685,dx:-1,dy:-.4,side:1},{kind:'wave',x:1300,y:140,dx:-.6,dy:.8,side:0}];
+      for(const s of samples)drawEnemy({...s,born:-1,fireAt:50,fired:false,locked:false});
+      drawBean(850,737,1.3,{vx:0,vy:0,rootUntil:0,rootImmuneUntil:0,invulnerableUntil:0});
+    }else{
+      if (game.edgeContact) {
+        const p = game.player, edge = game.edgeContact;
+        if (edge==='left'||edge==='right') line(FIELD[edge],Math.max(FIELD.top,p.y-40),FIELD[edge],Math.min(FIELD.bottom,p.y+40),'#528caf',5);
+        else line(Math.max(FIELD.left,p.x-40),FIELD[edge],Math.min(FIELD.right,p.x+40),FIELD[edge],'#528caf',5);
+      }
+      drawWarnings();
+      for(const a of game.attacks)if(a.kind==='burst')drawAttack(a);
+      for(const h of game.pickups)drawPickup(h);
+      for(const e of game.enemies)drawEnemy(e);
+      for(const a of game.attacks)if(a.kind!=='burst')drawAttack(a);
+      if(game.slowUntil>game.time){
+        ctx.save();ctx.setLineDash([6,8]);ellipse(ctx,game.player.x,game.player.y,41,41,null,'#699ca977',1.4);ctx.restore();
+      }
+      drawBean(game.player.x,game.player.y);
+      if(game.shieldActive){
+        const x=game.player.x, y=game.player.y;
+        ctx.save();
+        ctx.shadowColor='#4aafe3';ctx.shadowBlur=reducedMotion?5:9;
+        ellipse(ctx,x,y-3,34,39,'#5bbcec38','#2588bd',3.5);
+        ctx.shadowBlur=0;
+        ellipse(ctx,x,y-3,29,34,null,'#ddf6ff',1.6);
+        path(c=>{c.arc(x,y-3,35,-2.6,-1.3);},null,'#effcff',4);
+        const labelY=y< FIELD.top+75?y+56:y-54;
+        ctx.fillStyle='#e6f6ff';ctx.strokeStyle='#2588bd';ctx.lineWidth=1.5;
+        ctx.fillRect(x-39,labelY-14,78,22);ctx.strokeRect(x-39,labelY-14,78,22);
+        ctx.font='bold 13px "PingFang SC",sans-serif';ctx.textAlign='center';ctx.fillStyle='#226b94';
+        ctx.fillText('护盾 · 1 次',x,labelY+1);
+        ctx.restore();
+      }else if(game.held==='shield'){
+        ctx.save();ctx.font='12px "PingFang SC",sans-serif';ctx.textAlign='center';ctx.fillStyle='#397b9f';
+        ctx.fillText('护盾待启用 · 空格',game.player.x,game.player.y<FIELD.top+70?game.player.y+48:game.player.y-42);
+        ctx.restore();
+      }
+      if(game.player.hp<=250 && game.status==='running'){
+        const v=ctx.createRadialGradient(800,450,350,800,450,900);v.addColorStop(0,'#a83c2500');v.addColorStop(1,'#a83c25'+Math.floor(13+Math.sin(ambient*3)*6).toString(16).padStart(2,'0'));ctx.fillStyle=v;ctx.fillRect(0,0,W,H);
+      }
+    }
+    for(const p of particles){ctx.globalAlpha=Math.max(0,p.life/p.max);ellipse(ctx,p.x,p.y,2.3,2.3,p.color);}ctx.globalAlpha=1;
+    for(const f of floaters){
+      ctx.save();ctx.globalAlpha=Math.min(1,f.life*2);ctx.textAlign='center';
+      ctx.font=f.pickup?'bold 20px "PingFang SC",sans-serif':'bold 19px Georgia';
+      ctx.fillStyle=f.color;
+      if(f.pickup){ctx.strokeStyle='#fff8eb';ctx.lineWidth=4;ctx.lineJoin='round';ctx.strokeText(f.text,f.x,f.y);}
+      ctx.fillText(f.text,f.x,f.y);
+      if(f.subtitle){ctx.font='600 13px "PingFang SC",sans-serif';ctx.lineWidth=3;ctx.strokeText(f.subtitle,f.x,f.y+19);ctx.fillText(f.subtitle,f.x,f.y+19);}
+      ctx.restore();
+    }
+    ctx.globalAlpha=1;
+    if(hitFlash>0){ctx.fillStyle='rgba(182,66,43,'+hitFlash*.18+')';ctx.fillRect(0,0,W,H);}
+    ctx.restore();
+  }
+  function resize() {
+    const width=canvas.getBoundingClientRect().width;
+    frameScale=clamp(width*(window.devicePixelRatio||1)/W,.4,1.6);
+    canvas.width=Math.round(W*frameScale);canvas.height=Math.round(H*frameScale);
+    frameScale=canvas.width/W;
+    render();
+  }
+  function frame(stamp) {
+    const dt=lastStamp?Math.min((stamp-lastStamp)/1000,.08):0;lastStamp=stamp;ambient+=dt;
+    if(game.status==='running' && stamp >= resumeAt){
+      $('resume-countdown').hidden = true;
+      accumulator+=dt;
+      const input={up:keys.has('KeyW'),left:keys.has('KeyA'),down:keys.has('KeyS'),right:keys.has('KeyD')};
+      while(accumulator>=1/120&&game.status==='running'){game.tick(1/120,input);accumulator-=1/120;}
+      processEvents();
+      if(stamp-lastUI>60){updateHUD();lastUI=stamp;}
+    }else accumulator=0;
+    if(game.status!=='paused'&&game.status!=='upgrading'){
+      for(let i=particles.length-1;i>=0;i--){const p=particles[i];p.life-=dt;p.x+=p.vx*dt;p.y+=p.vy*dt;if(p.life<=0)particles.splice(i,1);}
+      for(let i=floaters.length-1;i>=0;i--){floaters[i].life-=dt;if(!reducedMotion)floaters[i].y+=dt*28*(floaters[i].below?1:-1);if(floaters[i].life<=0)floaters.splice(i,1);}
+      hitFlash=Math.max(0,hitFlash-dt);screenShake=Math.max(0,screenShake-dt*30);
+    }
+    if(stamp>toastUntil)$('toast').classList.remove('visible');
+    if(stamp>recordBannerUntil)$('record-banner').hidden=true;
+    render();requestAnimationFrame(frame);
+  }
+  document.addEventListener('keydown',e=>{
+    const panel = ['guide-panel','upgrade-panel','pause-panel','result'].map($).find(el=>!el.hidden);
+    if(e.code==='Tab' && panel) {
+      const buttons=[...panel.querySelectorAll('button:not(:disabled)')];
+      if(buttons.length){const i=buttons.indexOf(document.activeElement);if(i<0 || (!e.shiftKey && i===buttons.length-1) || (e.shiftKey && i===0)){e.preventDefault();buttons[e.shiftKey?buttons.length-1:0].focus();}}
+    }
+
+    if(e.code==='Space'&&game.status==='running'){
+      e.preventDefault();if(!e.repeat)usePower();return;
+    }
+    if(game.status==='upgrading'&&!$('upgrade-panel').hidden&&['Digit1','Digit2','Digit3'].includes(e.code)&&$('guide-panel').hidden){
+      e.preventDefault();if(!e.repeat)chooseUpgrade(game.offers[Number(e.code.slice(-1))-1]);return;
+    }
+    if(['KeyW','KeyA','KeyS','KeyD'].includes(e.code)){
+      if(game.status==='running'){e.preventDefault();keys.add(e.code);}return;
+    }
+    if(e.code==='Escape'){
+      if(e.repeat)return;
+      if(!$('guide-panel').hidden){closeGuide();return;}
+      if(game.status==='running')pause();else if(game.status==='paused')resume();
+    }
+  });
+  document.addEventListener('keyup',e=>keys.delete(e.code));
+  window.addEventListener('blur',()=>{keys.clear();pause(true);});
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){keys.clear();pause(true);}});
+  $('start').addEventListener('click',start);$('restart').addEventListener('click',start);
+  document.querySelector('.wordmark').addEventListener('click',e=>{e.preventDefault();home();});
+  $('use-power').addEventListener('click',()=>{usePower();canvas.focus({preventScroll:true});});
+  $('attributes').addEventListener('click',()=>pause());
+  $('pause').addEventListener('click',()=>pause());$('resume').addEventListener('click',resume);
+  $('pause-home').addEventListener('click',home);$('result-home').addEventListener('click',home);
+  $('guide').addEventListener('click',()=>{guideWasRunning=game.status==='running';if(guideWasRunning){game.pause();keys.clear();}$('guide-panel').hidden=false;});
+  function closeGuide(){ $('guide-panel').hidden=true;if(guideWasRunning){game.resume();beginCountdown();keys.clear();canvas.focus({preventScroll:true});}guideWasRunning=false; }
+  $('close-guide').addEventListener('click',closeGuide);
+  $('sound').addEventListener('click',()=>{sound=!sound;$('sound').setAttribute('aria-pressed',String(sound));$('sound').innerHTML='音效 <span>'+(sound?'开':'关')+'</span>';if(sound)soundEffect('start');});
+  $('fullscreen').addEventListener('click',async()=>{
+    try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}
+    catch{toast('当前浏览器不支持全屏，可放大窗口试玩');}
+  });
+  new ResizeObserver(resize).observe($('arena'));
+  window.addEventListener('resize',resize);
+  loadRecords();resize();requestAnimationFrame(frame);
+  // Read-only telemetry supports repeatable QA without changing a live run or its score.
+  window.dodgeDiagnostics = () => ({status:game.status,time:game.time,wave:game.wave,level:difficulty(game.time).level,
+    player:{...game.player},enemies:game.enemies.map(e=>({kind:e.kind,x:e.x,y:e.y,locked:e.locked,fired:e.fired,dx:e.dx,dy:e.dy,target:{...e.target}})),
+    attacks:game.attacks.map(a=>({kind:a.kind,x:a.x,y:a.y,dx:a.dx,dy:a.dy,age:a.age})),pickups:game.pickups.map(h=>({...h})),
+    stats:JSON.parse(JSON.stringify(game.stats)),canvas:{width:canvas.width,height:canvas.height},storageAvailable,records:records.length,
+    offers:[...game.offers],rerolled:[...game.rerolled],attributes:game.attributes(),edgeContact:game.edgeContact,resuming:performance.now()<resumeAt,held:game.held,shieldActive:game.shieldActive,slowUntil:game.slowUntil,fragments:game.fragments,upgrades:{...game.upgrades},
+    recordBroken:game.recordBroken,previousBest:game.previousBest,keys:[...keys],particles:particles.length});
+})();
+</script>
+</body>
+</html>

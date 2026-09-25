@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f1e9d9">
+  <title>再躲一下 · DODGE AGAIN</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect x='13' y='8' width='38' height='47' rx='19' fill='%2373afd6' stroke='%232c3540' stroke-width='3'/%3E%3Ccircle cx='26' cy='27' r='5' fill='white'/%3E%3Ccircle cx='39' cy='27' r='5' fill='white'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css?v=3.8">
+</head>
+<body>
+  <header class="site-header">
+    <a class="wordmark" href="#" aria-label="再躲一下首页"><span class="brand-dot">d.</span><span>再躲一下 <small>DODGE AGAIN · v3.8</small></span></a>
+    <div class="header-note"><span class="live-dot"></span> 无尽走位练习场 <span class="divider">/</span> GROW & SURVIVE · 03</div>
+    <div class="tools">
+      <button id="sound" class="tool" aria-pressed="false" title="切换音效">音效 <span>关</span></button>
+      <button id="guide" class="tool">玩法说明</button>
+      <button id="fullscreen" class="tool square" aria-label="全屏" title="全屏">⛶</button>
+    </div>
+  </header>
+  <main>
+    <div class="arena" id="arena">
+      <canvas id="game" width="1600" height="900" aria-label="走位竞技场。使用 WASD 移动，Esc 暂停。" tabindex="0"></canvas>
+      <div id="hud" class="hud" hidden>
+        <div class="health-block"><div class="health-caption"><span class="heart">♥</span> <b id="hp">1000</b><span id="max-hp" class="health-max">/ 1000</span><span id="control" class="control-tag"></span></div><div class="health-track"><i id="health-fill"></i></div></div>
+        <div class="clock-block"><span class="eyebrow">SURVIVAL TIME</span><strong id="clock">00:00.0</strong><span id="record-badge" class="record-badge" hidden>✦ 新纪录</span></div>
+        <div class="pace-block"><div><span id="level">强度 01</span><span class="small-separator">/</span><span id="wave">第 0 批</span></div><div class="pace-track"><i id="pace-fill"></i></div></div>
+        <button id="pause" class="pause-button" aria-label="暂停游戏">Ⅱ</button>
+      </div>
+      <div id="run-tools" class="run-tools" hidden>
+        <button id="use-power" class="power-slot" aria-label="使用携带的技能包"><kbd>SPACE</kbd><span id="power-label">技能槽为空</span></button>
+        <button id="attributes" class="attributes-button">本局能力 · Esc</button><span id="active-power" class="active-power"></span>
+        <span class="fragment-counter">✧ 碎片 <b id="fragment-count">0 / 3</b><small id="growth-summary">本局成长 0 次</small></span>
+      </div>
+      <div id="record-banner" class="record-banner" aria-live="polite" hidden>✦ 新纪录！继续向前。</div>
+      <div id="toast" class="toast" aria-live="polite"></div>
+      <div id="menu" class="overlay menu-overlay">
+        <section class="intro">
+          <div class="eyebrow red"><span class="tiny-star">✳</span> A LITTLE GAME ABOUT STAYING ALIVE</div>
+          <h1>再躲<span class="title-mark">一下</span><i>!</i></h1>
+          <div class="english-title">DODGE <span>AGAIN.</span></div>
+          <p class="intro-copy">没有攻击键。只有你、四面八方的技能，<br>和下一次恰到好处的闪躲。</p>
+          <div class="start-row"><button id="start" class="primary">开始挑战 <span>↗</span></button><span class="start-hint">WASD 移动 · 空格用道具<br>ESC 暂停</span></div>
+          <div class="intro-meta"><span>1000 生命值</span><span>捡碎片，选成长</span><span>活得久，排得高</span></div>
+        </section>
+        <aside class="record-card">
+          <div class="eyebrow">YOUR PERSONAL BEST</div><div id="best" class="best">—<span>秒</span></div>
+          <div class="card-rule"></div>
+          <div class="board-title"><b>生存排行榜</b><span>本机记录</span></div>
+          <ol id="leaderboard" class="leaderboard"></ol>
+          <div id="storage-note" class="card-foot">每次挑战，留下一点进步。</div>
+        </aside>
+        <div class="menu-foot"><span class="ink-arrow">↳</span> 看清来路，给自己留条退路。</div>
+      </div>
+      <div id="resume-countdown" class="resume-countdown" role="status" hidden></div>
+      <div id="pause-panel" class="overlay modal-overlay" hidden>
+        <section class="modal pause-modal"><div class="eyebrow">TAKE A BREATH</div><h2>先歇一下。</h2><p>计时和所有技能已经暂停。</p><div class="attributes-panel"><b>本局能力</b><p id="attribute-values"></p><p id="no-growth">尚未成长 · 每 3 枚碎片选择一张成长卡</p><ul id="owned-cards"></ul></div><button id="resume" class="primary">继续走位 <span>↗</span></button><button id="pause-home" class="text-button">结束本局，返回首页</button></section>
+      </div>
+      <div id="result" class="overlay modal-overlay" hidden>
+        <section class="modal result-modal"><div id="result-tag" class="eyebrow red">ONE MORE TRY?</div><h2>就差一点。</h2><div class="result-time"><span id="result-time">0.0</span><small>秒</small></div><p id="death-reason"></p><div class="result-stats"><div><b id="result-wave">0</b><span>遭遇批次</span></div><div><b id="result-dodged">0</b><span>避开的技能</span></div><div><b id="result-rank">—</b><span>本机排名</span></div></div><button id="restart" class="primary">再躲一下 <span>↗</span></button><button id="result-home" class="text-button">查看排行榜</button><p class="result-note" id="result-save"></p></section>
+      </div>
+      <div id="upgrade-panel" class="overlay modal-overlay" hidden>
+        <section class="modal upgrade-modal" role="dialog" aria-modal="true" aria-labelledby="upgrade-title">
+          <div class="eyebrow red">THREE SHARDS. ONE GOOD CHOICE.</div><h2 id="upgrade-title">给下一次闪躲，多一点底气。</h2>
+          <p>已收集 3 枚成长碎片 · 战场、道具和计时已暂停</p>
+          <div id="upgrade-grid" class="upgrade-grid"></div><p id="upgrade-feedback" role="status" class="upgrade-feedback"></p><p class="upgrade-foot">点击选择，或按 1 / 2 / 3 · 成长仅在本局有效</p>
+        </section>
+      </div>
+      <div id="guide-panel" class="overlay modal-overlay" hidden>
+        <section class="modal guide-modal"><div class="eyebrow red">KNOW WHAT IS COMING</div><h2>只走位，不出手。</h2><p>WASD 即按即走，斜向不加速。敌人瞄准你，放完技能就退场。</p><div class="guide-grid"><div><i class="skill-symbol spear">➝</i><b>长矛 · 100 伤害</b><span>窄而快，朝弹道侧面闪。</span></div><div><i class="skill-symbol beam">━</i><b>射线 · 150 伤害</b><span>长条预警后瞬发，先离开线。</span></div><div><i class="skill-symbol wave">❯</i><b>冲击波 · 120 伤害</b><span>宽幅推进，提前向两侧绕。</span></div><div><i class="skill-symbol bind">●</i><b>禁锢球 · 65 伤害</b><span>定身 0.5～2 秒，优先躲开。</span></div><div><i class="skill-symbol burst">◎</i><b>轰击 · 130 伤害</b><span>圆圈填满就爆炸，及时出圈。</span></div><div><i class="skill-symbol heal">✚</i><b>补给 · 回复 180</b><span>18 秒起独立刷新，后期更频繁；满血也可拾取，8 秒消失。</span></div></div><p class="guide-fine"><b>护盾包</b>：空格使用后持续保留，挡住下一次攻击的伤害和控制后消失；拾取新的护盾或减速包也会移除当前护盾。血包与碎片不移除护盾。<b>时间减速</b>：飞行技能减速 50%，持续 3 秒，射线与轰击不减速。最多携带一个技能包；拾取新道具会直接替换当前携带道具，同类也可拾取，不叠加。地面可保留一个备用道具。碎片与道具每 30 秒提高刷新频率，90 秒后达到上限。地面道具均有 8 秒倒计时。<br><b>成长碎片</b>：自动拾取，每 3 枚暂停，从六张成长卡中随机三选一；每张可独立刷新一次。包含生命、移速、减速时长、拾取范围、护盾格挡加速和使用减速回血。已满级的卡不再出现，全满级后转为续航储备。按 Esc 查看本局能力。选择后有 1 秒准备时间。<br>硬控制结束后有 1.2 秒防连续定身保护。每 15 秒提升强度；排名只看存活时间。切出页面自动暂停。</p><button id="close-guide" class="primary">知道了 <span>✓</span></button></section>
+      </div>
+    </div>
+    <footer class="game-footer"><div class="key-hint"><kbd>W</kbd><span><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd></span><b>移动 · 空格使用道具</b></div><div class="skill-legend"><span><i class="legend-line"></i>长矛</span><span><i class="legend-beam"></i>射线</span><span><i class="legend-wave">〉</i>冲击波</span><span><i class="legend-bind"></i>禁锢</span><span><i class="legend-burst"></i>轰击</span><span><i class="legend-heal">+</i>补给</span></div><div class="footer-note">不必迎战，漂亮地躲开。<span>↗</span></div></footer>
+    <p class="keyboard-warning">建议使用电脑键盘试玩 · WASD 移动</p>
+  </main>
+  <script src="engine.js?v=3.8"></script>
+  <script src="game.js?v=3.8"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>再躲一下 · 浏览器回归检查</title>
+<style>#results{max-height:180px;overflow:auto}body{font:14px system-ui;background:#eee8dc;color:#293331;margin:20px}iframe{width:1100px;height:760px;border:1px solid #b8aa90;background:#f4eddf}li{padding:4px}pre{white-space:pre-wrap}#status{font-size:20px}</style>
+<h1>浏览器回归检查</h1><p>隔离的测试榜单。键盘事件通过真实页面的输入监听器执行，不修改游戏状态。</p><p id="status">进行中…</p><ol id="results"></ol><pre id="summary"></pre><iframe id="app" src="../index.html?qa=1"></iframe>
+<script>
+const results=[],errors=[];let frameWindow,doc;
+const delay=ms=>new Promise(r=>setTimeout(r,ms));
+const check=(name,pass,details)=>{results.push({name,pass:!!pass,details});const li=document.createElement('li');li.textContent=(pass?'✓ ':'✗ ')+name+(details?' — '+JSON.stringify(details):'');li.style.color=pass?'#427455':'#b14133';document.getElementById('results').append(li);if(!pass)throw new Error(name);};
+const state=()=>frameWindow.dodgeDiagnostics();
+const key=(type,code)=>doc.dispatchEvent(new frameWindow.KeyboardEvent(type,{code,key:code.startsWith('Key')?code.slice(3).toLowerCase():'Escape',bubbles:true,cancelable:true}));
+const wait=async(fn,timeout=5000)=>{const start=performance.now();while(!fn()){if(performance.now()-start>timeout)throw new Error('Timed out');await delay(40);}};
+document.getElementById('app').addEventListener('load',async function(){
+ if(window.__started)return;window.__started=true;
+ try{
+  frameWindow=this.contentWindow;doc=frameWindow.document;
+  frameWindow.addEventListener('error',e=>errors.push(e.message));frameWindow.addEventListener('unhandledrejection',e=>errors.push(String(e.reason)));
+  check('启动页面与 16:9 场地',state().status==='ready'&&Math.abs(doc.getElementById('arena').clientWidth/doc.getElementById('arena').clientHeight-16/9)<.01);
+  doc.getElementById('start').click();frameWindow.focus();
+  check('开始后 1000 血、无血包',state().player.hp===1000&&state().pickups.length===0);
+  let a=state();key('keydown','KeyD');await wait(()=>state().time>a.time+.35);key('keyup','KeyD');let b=state();
+  check('持续 D 移动速度',Math.abs((b.player.x-a.player.x)/(b.time-a.time)-355)<4,{distance:b.player.x-a.player.x,seconds:b.time-a.time});
+  a=state();key('keydown','KeyW');key('keydown','KeyA');await wait(()=>state().time>a.time+.25);key('keyup','KeyW');key('keyup','KeyA');b=state();
+  check('斜向移动不加速',Math.abs(Math.hypot(b.player.x-a.player.x,b.player.y-a.player.y)/(b.time-a.time)-355)<4);
+  a=state();await wait(()=>state().time>a.time+.15);b=state();check('松键立即停止',Math.hypot(b.player.x-a.player.x,b.player.y-a.player.y)<.01);
+  a=state();key('keydown','KeyA');key('keydown','KeyD');await wait(()=>state().time>a.time+.15);key('keyup','KeyA');key('keyup','KeyD');b=state();check('反向按键抵消',Math.hypot(b.player.x-a.player.x,b.player.y-a.player.y)<.01);
+  key('keydown','Escape');const paused=state();await delay(250);check('Esc 暂停冻结计时',state().status==='paused'&&state().time===paused.time&&!doc.getElementById('pause-panel').hidden);
+  doc.getElementById('resume').click();check('继续按钮恢复游戏',state().status==='running');
+  doc.getElementById('guide').click();check('游戏中打开说明会暂停',state().status==='paused'&&!doc.getElementById('guide-panel').hidden);doc.getElementById('close-guide').click();check('关闭说明恢复游戏',state().status==='running');
+  frameWindow.dispatchEvent(new frameWindow.Event('blur'));check('失焦自动暂停并清空按键',state().status==='paused'&&state().keys.length===0);doc.getElementById('resume').click();
+  let frames=0,done=false;const begin=performance.now();function frame(){frames++;if(!done)frameWindow.requestAnimationFrame(frame);}frameWindow.requestAnimationFrame(frame);await delay(1500);done=true;const fps=frames/(performance.now()-begin)*1000;
+  check('真实浏览器动画刷新率大于 30fps',fps>30,{fps:Math.round(fps)});
+  await wait(()=>state().stats.casts>0);check('敌人已瞄准并释放技能',state().stats.casts>0,{casts:state().stats.casts});
+  await wait(()=>state().status==='dead',90000);
+  check('被命中可死亡，血量和结算一致',state().player.hp===0&&doc.getElementById('hp').textContent==='0'&&!doc.getElementById('result').hidden,{survival:state().time,damage:state().stats.damage});
+  const count=state().records;check('死亡成绩已存储',count>0&&state().storageAvailable);const recordText=doc.getElementById('result-time').textContent;
+  doc.getElementById('restart').click();check('一键重开完全重置',state().time===0&&state().player.hp===1000&&state().wave===0&&state().attacks.length===0&&state().pickups.length===0);
+  key('keydown','Escape');doc.getElementById('pause-home').click();check('返回首页展示真实排行榜',!doc.getElementById('menu').hidden&&doc.getElementById('leaderboard').textContent.includes(recordText));
+  this.src='../index.html?qa=1&reload=1';await new Promise(resolve=>this.addEventListener('load',resolve,{once:true}));frameWindow=this.contentWindow;doc=frameWindow.document;
+  check('刷新后榜单保留',state().records===count);
+  check('无页面错误',errors.length===0,errors);
+  document.getElementById('status').textContent='全部通过：'+results.length+' 项';
+ }catch(e){errors.push(e.stack||String(e));document.getElementById('status').textContent='失败：'+e.message;}
+ document.getElementById('summary').textContent=JSON.stringify({results,errors},null,2);
+});
+</script></html>

@@ -1,0 +1,64 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><title>成长与技能包 · 浏览器测试</title>
+<style>#results{max-height:180px;overflow:auto}body{margin:20px;font:14px system-ui;background:#eee8dc;color:#293331}iframe{width:1100px;height:760px;border:1px solid #b8aa90}li{padding:3px}pre{white-space:pre-wrap}#status{font-size:20px}.preview iframe{width:calc(100vw - 44px);height:calc(100vh - 120px)}.preview #results,.preview #summary{display:none}</style>
+<h1>技能包与成长回归</h1><p>隔离测试场景：真实引擎和界面，定点放置道具与攻击以复现边界；不计入正式成绩。</p><p id="status">正在准备…</p><ol id="results"></ol><pre id="summary"></pre><iframe id="app"></iframe>
+<script>
+(async()=>{
+ const results=[],errors=[],frame=document.getElementById('app'),preview=new URLSearchParams(location.search).get('show');
+ const delay=ms=>new Promise(r=>setTimeout(r,ms));
+ const check=(name,pass,details)=>{results.push({name,pass:!!pass,details});const li=document.createElement('li');li.textContent=(pass?'✓ ':'✗ ')+name+(details?' — '+JSON.stringify(details):'');document.getElementById('results').append(li);if(!pass)throw Error(name);};
+ try{
+  let html=await(await fetch('../index.html')).text(),app=await(await fetch('../game.js')).text();
+  const engineURL=new URL('../engine.js',location.href).href,cssURL=new URL('../styles.css',location.href).href;
+  const fixture=`class FixtureGame extends DodgeEngine.Game { constructor(){super(DodgeEngine.seeded(123));window.__fixtureGame=this;} start(){super.start(.2);this.nextWave=Infinity;this.nextHealCheck=Infinity;this.nextPower=Infinity;this.nextFragment=Infinity;} } DodgeEngine.Game=FixtureGame;`;
+  app=app.replace("const qaMode = new URLSearchParams(location.search).get('qa') === '1';",'const qaMode = true;');
+  const close='<'+ '/script>';
+  html=html.replace('href="styles.css"','href="'+cssURL+'"').replace('<script src="engine.js">'+close,'<script src="'+engineURL+'">'+close+'<script>'+fixture+close).replace('<script src="game.js">'+close,'<script>'+app+close);
+  const loaded=new Promise(r=>frame.addEventListener('load',r,{once:true}));frame.srcdoc=html;await loaded;
+  const w=frame.contentWindow,d=w.document,g=w.__fixtureGame,s=()=>w.dodgeDiagnostics();
+  w.addEventListener('error',e=>errors.push(e.message));w.addEventListener('unhandledrejection',e=>errors.push(String(e.reason)));
+  const key=(type,code,repeat=false)=>d.dispatchEvent(new w.KeyboardEvent(type,{code,key:code==='Space'?' ':code,bubbles:true,cancelable:true,repeat}));
+  const wait=async(fn,timeout=4000)=>{const t=performance.now();while(!fn()){if(performance.now()-t>timeout)throw Error('Timed out');await delay(20);}};
+  const drop=(kind,offset=0)=>g.pickups.push({kind,id:++g.id,x:g.player.x+offset,y:g.player.y,born:g.time,expires:g.time+8,amount:180});
+  d.getElementById('start').click();w.focus();
+  await wait(()=>s().recordBroken);check('纪录提示正常',!d.getElementById('record-badge').hidden);
+  const {FIELD,MOVE_PAD,CARDS}=w.DodgeEngine;
+  g.player.y=FIELD.bottom-MOVE_PAD.bottom;const x=g.player.x;
+  key('keydown','KeyS');key('keydown','KeyD');await wait(()=>g.time>.6);key('keyup','KeyS');key('keyup','KeyD');
+  check('下边界仍能沿边移动',g.player.x>x&&g.player.y===FIELD.bottom-MOVE_PAD.bottom);
+  g.hurt(65,'禁锢暗球',.5);let rx=g.player.x;key('keydown','KeyD');await delay(180);check('定身期间不移动',g.player.x===rx);await wait(()=>g.player.x>rx);key('keyup','KeyD');check('定身结束自动恢复移动',g.player.x>rx);
+  d.getElementById('attributes').click();check('属性按钮暂停并显示真实属性',s().status==='paused'&&d.getElementById('attribute-values').textContent.includes('1000'));
+  const pt=g.time;await delay(180);check('属性面板冻结战斗',g.time===pt);
+  d.getElementById('resume').click();await delay(200);check('恢复倒计时不消耗生存时间',g.time===pt&&!d.getElementById('resume-countdown').hidden);await wait(()=>g.time>pt);
+  drop('shield');await wait(()=>g.held==='shield');key('keydown','Space');key('keyup','Space');await delay(80);check('空格使用护盾',g.shieldUntil>g.time&&g.held===null);
+  g.fire({kind:'bind',x:g.player.x-18,y:g.player.y,dx:1,dy:0,root:2});await wait(()=>g.stats.blocked===1);check('护盾抵挡实际控制弹',g.player.hp===935&&g.player.rootUntil<g.time);
+  drop('shield');await wait(()=>g.held==='shield');drop('shield');await wait(()=>!g.pickups.length);await delay(100);check('相同护盾可拾取替换并给出提示',g.held==='shield'&&d.getElementById('toast').textContent.includes('已替换'));
+  drop('slow');await wait(()=>g.held==='slow');await delay(100);check('不同道具直接替换，技能槽同步',d.getElementById('power-label').textContent.includes('时间减速')&&g.pickups.length===0);g.held=null;
+  g.fragments=2;drop('fragment');await wait(()=>s().status==='upgrading');
+  check('三碎片触发随机三选一',!d.getElementById('upgrade-panel').hidden&&d.querySelectorAll('.upgrade-card').length===3&&new Set(g.offers).size===3);
+  const frozen=g.time;await delay(200);check('选卡冻结计时',g.time===frozen);
+  const original=[...g.offers];for(let i=0;i<3;i++){const before=[...g.offers];d.querySelector('.reroll[data-slot="'+i+'"]').click();check('第'+(i+1)+'张独立刷新一次',g.offers[i]!==before[i]&&g.offers.every((k,j)=>j===i||k===before[j])&&d.querySelector('.reroll[data-slot="'+i+'"]').disabled);}
+  check('刷新不回流已弃卡',g.offers.every(k=>!original.includes(k)));
+  key('keydown','Escape');check('Esc 不绕过选卡',s().status==='upgrading');
+  if(preview==='upgrade'){document.body.classList.add('preview');document.getElementById('status').textContent='六卡池随机三选一 · 视觉验收';return;}
+  const chosen=g.offers[1];key('keydown','Digit2');check('数字键选择对应卡片',g.upgrades[chosen]===1&&d.getElementById('upgrade-panel').hidden);
+  const t=g.time;await delay(150);check('选卡后准备时间冻结战场',g.time===t&&!d.getElementById('resume-countdown').hidden);await wait(()=>g.time>t);
+  // Controlled offers test the actual card UI and effects, independently of random draws.
+  async function select(kind){const originalDraw=g.drawCard;g.drawCard=(exclude=[])=>exclude.includes(kind)?null:kind;g.fragments=2;drop('fragment');await wait(()=>!d.getElementById('upgrade-panel').hidden);g.drawCard=originalDraw;d.getElementById('upgrade-'+kind).click();await wait(()=>!s().resuming);}
+  if(!g.upgrades.shieldHaste)await select('shieldHaste');if(!g.upgrades.slowHeal)await select('slowHeal');
+  g.held='shield';g.shieldUntil=0;key('keydown','Space');key('keyup','Space');g.hurt(100,'测试攻击');await delay(100);check('护盾疾行实际触发并显示',g.hasteUntil>g.time&&d.getElementById('active-power').textContent.includes('疾行'));
+  g.player.hp=800;g.held='slow';g.slowUntil=0;key('keydown','Space');key('keyup','Space');await delay(100);check('时间喘息真实回复血量',g.player.hp===860&&d.getElementById('hp').textContent==='860');
+  d.getElementById('attributes').click();check('属性页显示已选卡与等级',d.getElementById('owned-cards').textContent.includes('护盾疾行 1/1')&&d.getElementById('owned-cards').textContent.includes('时间喘息 1/1'));d.getElementById('resume').click();await wait(()=>!s().resuming);
+  for(const [k,c] of Object.entries(CARDS))g.upgrades[k]=c.cap;
+  g.fragments=2;drop('fragment');await wait(()=>!d.getElementById('upgrade-panel').hidden);check('全卡满级仍有续航选项',g.offers[0]==='reserve'&&d.getElementById('upgrade-reserve')&&!d.querySelector('.reroll').matches(':enabled'));
+  const max=g.player.maxHp;d.getElementById('upgrade-reserve').click();check('续航选择有效且无死锁',g.player.maxHp===max+25&&g.status==='running');await wait(()=>!s().resuming);
+  key('keydown','Escape');d.getElementById('pause-home').click();d.getElementById('start').click();await delay(50);check('重开清空本局能力、道具和倒计时',Object.values(g.upgrades).every(n=>n===0)&&g.player.maxHp===1000&&g.reserve===0&&g.held===null&&!s().resuming);
+  const rect=d.getElementById('game').getBoundingClientRect(),tools=d.getElementById('run-tools').getBoundingClientRect();
+  check('底栏完全位于场地边界外',tools.top>=rect.top+rect.height*FIELD.bottom/900);
+  drop('heal',200);drop('shield',-200);drop('fragment',300);
+  if(preview==='items'){g.player.y=FIELD.bottom-MOVE_PAD.bottom;g.hurt(1,'禁锢',2);g.pause();document.body.classList.add('preview');document.getElementById('status').textContent='场地边界、控制与底部信息视觉验收';return;}
+  const deadline=g.pickups[0].expires;await wait(()=>g.time>deadline,15000);check('地面道具到期清除',g.pickups.length===0);
+  check('无页面错误',errors.length===0,errors);document.getElementById('status').textContent='全部通过：'+results.length+' 项';
+ }catch(e){errors.push(e.stack||String(e));document.getElementById('status').textContent='失败：'+e.message;}
+ document.getElementById('summary').textContent=JSON.stringify({results,errors},null,2);
+})();
+</script></html>
